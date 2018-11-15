@@ -1,6 +1,6 @@
 <template>
   <div class="view">
-    Home page
+    Thread page
   </div>
 </template>
 
@@ -8,5 +8,5 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({})
-export default class HomeView extends Vue {}
+export default class ThreadView extends Vue {}
 </script>
