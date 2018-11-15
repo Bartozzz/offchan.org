@@ -1,0 +1,19 @@
+// Fonts:
+$font-family-sans-serif: "Avenir", $font-family-sans-serif;
+$font-family-base: $font-family-sans-serif;
+
+// Theme:
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": #111111
+);
+
+// Body:
+$body-bg: $black;
+$body-color: $white;
