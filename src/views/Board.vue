@@ -14,7 +14,7 @@
 
         <hr class="my-4">
 
-        Tutaj form dodawania threadu
+        <ThreadForm></ThreadForm>
       </b-jumbotron>
     </b-container>
 
@@ -28,10 +28,12 @@
 import { Component, Vue } from "vue-property-decorator";
 import * as config from "@/config";
 import Header from "@/components/Header/Header.vue";
+import ThreadForm from "@/components/Thread/Form.vue";
 
 @Component({
   components: {
-    Header
+    Header,
+    ThreadForm
   }
 })
 export default class BoardView extends Vue {

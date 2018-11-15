@@ -22,3 +22,29 @@ $body-color: $white;
 // Links:
 $link-color: theme-color("primary");
 $link-hover-color: darken($link-color, 15%);
+
+// Forms
+$input-bg: theme-color("dark");
+$input-disabled-bg: $gray-200 !default;
+$input-color: #e9e9e9;
+$input-border-color: #232628;
+$input-box-shadow: 0 2px 3px rgba(black, 0.1);
+
+$input-focus-bg: $input-bg;
+$input-focus-border-color: theme-color("primary");
+$input-focus-color: $input-color;
+$input-focus-box-shadow: 0 0 0 5px rgba(theme-color("primary"), 0.25);
+
+$custom-file-bg: $input-bg;
+$custom-file-disabled-bg: $input-disabled-bg;
+$custom-file-color: $input-color;
+$custom-file-border-color: $input-border-color;
+$custom-file-box-shadow: $input-box-shadow;
+
+$custom-file-focus-bg: $input-focus-bg;
+$custom-file-focus-border-color: $input-focus-border-color;
+$custom-file-focus-color: $input-focus-color;
+$custom-file--focus-box-shadow: $input-focus-box-shadow;
+
+$custom-file-button-bg: $input-border-color;
+$custom-file-button-color: $input-color;
