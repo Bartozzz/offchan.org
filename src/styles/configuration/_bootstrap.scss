@@ -4,7 +4,7 @@ $font-family-base: $font-family-sans-serif;
 
 // Theme:
 $theme-colors: (
-  "primary": $primary,
+  "primary": #cb5f75,
   "secondary": $secondary,
   "success": $success,
   "info": $info,
@@ -17,3 +17,7 @@ $theme-colors: (
 // Body:
 $body-bg: $black;
 $body-color: $white;
+
+// Links:
+$link-color: theme-color("primary");
+$link-hover-color: darken($link-color, 15%);
