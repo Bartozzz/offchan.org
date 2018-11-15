@@ -20,18 +20,11 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import * as config from "@/config";
 
 @Component({})
 export default class HomeView extends Vue {
-  categories = [
-    { board: "cyb", name: "Cyberia", description: "Random" },
-    { board: "psy", name: "Psychology", description: "" },
-    { board: "art", name: "Art & Design", description: "" },
-    { board: "cult", name: "Culture & Media", description: "" },
-    { board: "tech", name: "Technology & Science", description: "" },
-    { board: "λ", name: "Programming", description: "" },
-    { board: "Δ", name: "Projects", description: "" }
-  ];
+  categories = config.categories;
 }
 </script>
 
