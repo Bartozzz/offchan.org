@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="md" type="dark" variant="black">
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-    <b-navbar-brand href="#">Offchan</b-navbar-brand>
+    <b-navbar-brand tag="router-link" to="/">Offchan</b-navbar-brand>
 
     <b-collapse is-nav id="nav_collapse">
       <b-navbar-nav>
