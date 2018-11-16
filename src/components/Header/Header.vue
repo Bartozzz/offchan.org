@@ -38,7 +38,7 @@ export default class Header extends Vue {
 <style lang="scss" scoped>
 .category {
   &-board {
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 768px - 1px) {
       display: inline-block;
 
       padding: 0 0 0 1rem;
@@ -56,7 +56,7 @@ export default class Header extends Vue {
 
     color: #cb5f75;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 768px - 1px) {
       display: inline-block;
     }
   }
@@ -67,8 +67,8 @@ export default class Header extends Vue {
     padding: 0 1rem;
     margin: 0;
 
-    @media screen and (max-width: 768px) {
-      display: inline-block;
+    @media screen and (max-width: 768px - 1px) {
+      display: block;
     }
   }
 }
