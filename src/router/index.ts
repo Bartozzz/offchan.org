@@ -13,7 +13,7 @@ export default new Router({
     },
 
     {
-      path: "/board/:category?",
+      path: "/board/:category",
       name: "board",
       component: () =>
         import(/* webpackChunkName: "board" */ "../views/Board.vue")
