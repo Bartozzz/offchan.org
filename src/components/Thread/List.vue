@@ -3,7 +3,7 @@
     <li v-for="(thread, index) in threads" :key="index" class="thread">
       <ThreadPost>
         <template slot="author">
-          {{ thread.author.trim() || "Anon" }}
+          {{ thread.author || "Anon" }}
         </template>
 
         <template slot="upload-file">
