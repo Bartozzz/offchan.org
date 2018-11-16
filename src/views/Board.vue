@@ -1,6 +1,6 @@
 <template>
   <div class="view">
-    <Header />
+    <Header></Header>
 
     <b-container>
       <b-jumbotron bg-variant="black" text-variant="white" class="jumbotron">
