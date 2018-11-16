@@ -80,10 +80,8 @@ $glitch-height: 30;
     @media screen and (max-width: 768px - 1px) {
       display: inline-block;
 
-      padding: 0 0 0 1rem;
+      padding: 0 0.35rem 0 1rem;
       margin: 0;
-
-      min-width: 60px;
 
       font-weight: bold;
       color: #cb5f75;
