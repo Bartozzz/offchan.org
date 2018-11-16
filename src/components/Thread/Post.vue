@@ -20,8 +20,8 @@
 
       <b-card-footer>
         <section class="text-right">
-          <a href="#" class="card-link">View</a>
-          <a href="#" class="card-link">Reply</a>
+          <router-link :to="`/thread/${guid}`" class="card-link">View</router-link>
+          <router-link :to="`/thread/${guid}`" class="card-link">Reply</router-link>
         </section>
       </b-card-footer>
     </b-card>
