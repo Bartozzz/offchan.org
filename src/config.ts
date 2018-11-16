@@ -2,48 +2,48 @@ export const categories = [
   {
     board: "cyb",
     name: "Cyberia",
-    description: "Random"
+    description: "Random. Low life. High tech. Anonymity. Privacy. Security."
   },
 
   {
     board: "psy",
     name: "Psychology",
-    description: ""
+    description: "Dreams. Drgs. Consciousness. Feelings and experiences."
   },
 
   {
     board: "art",
     name: "Art & Design",
-    description: ""
+    description: "Art. Design. Origami. Photography. Writing."
   },
 
   {
     board: "cult",
     name: "Culture & Media",
-    description: ""
+    description: "Anime. Fashion. Films. Games. Lifestyle. Lliterature. Music."
   },
 
   {
     board: "tech",
     name: "Technology & Science",
-    description: ""
+    description: "Science. Technology. Engineering. Mathematics."
   },
 
   {
     board: "λ",
     name: "Programming",
-    description: ""
+    description: "Structure and interpretation of computer programs."
   },
 
   {
     board: "Δ",
     name: "Projects",
-    description: ""
+    description: "Do-it-yourself. Hardware, Software and Community Projects."
   },
 
   {
     board: "φ",
     name: "Philosophy",
-    description: ""
+    description: "Philosophy. Share your thoughts."
   }
 ];
