@@ -36,7 +36,7 @@ export default class ErrorView extends Vue {}
     width: 120px;
     height: 40px;
 
-    background-image: url(../assets/os-2.gif);
+    background-image: url(../assets/stuff/navi.gif);
     background-repeat: no-repeat;
 
     content: "";
