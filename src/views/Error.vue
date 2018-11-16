@@ -1,6 +1,6 @@
 <template>
   <div class="error">
-    <p class="error-message">An error occurred, please refresh</p>
+    <p class="error-message">An error occurred…</p>
   </div>
 </template>
 
@@ -15,31 +15,56 @@ export default class ErrorView extends Vue {}
 .error {
   position: relative;
 
-  background-image: url(../assets/error-1.gif);
-  background-size: contain;
-  background-position: bottom;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
 
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: -o-crisp-edges;
-  image-rendering: -webkit-optimize-contrast;
-  -ms-interpolation-mode: nearest-neighbor;
+  // background-image: url(../assets/error/error-1.gif);
+  background-image: url(../assets/error/error-2.gif);
+  // background-image: url(../assets/error/error-3.gif);
+  background-color: #111111;
 
   width: 100vw;
   height: 100vh;
 
-  &-message {
+  &:after {
     position: absolute;
-    top: 3rem;
-    left: 3rem;
+    bottom: 1rem;
+    right: 1rem;
 
+    width: 120px;
+    height: 40px;
+
+    background-image: url(../assets/os-2.gif);
+    background-repeat: no-repeat;
+
+    content: "";
+  }
+
+  &-message {
     padding: 1rem 2rem;
-    margin: 0;
+    margin: 0 auto;
 
-    font-size: 4rem;
+    font-size: 3rem;
+    max-width: 500px;
 
     background-color: #cb5f75;
     color: #ffffff;
+
+    // Glitch on text:
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      background-image: url(../assets/error/error-3.gif);
+
+      content: "";
+    }
   }
 }
 </style>
