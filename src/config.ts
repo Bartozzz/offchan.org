@@ -1,4 +1,10 @@
-export const categories = [
+export interface Category {
+  board: string;
+  name: string;
+  description: string;
+}
+
+export const categories: Category[] = [
   {
     board: "cyb",
     name: "Cyberia",

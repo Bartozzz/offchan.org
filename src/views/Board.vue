@@ -25,8 +25,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import * as config from "@/config";
+import { Component, Vue, Watch } from "vue-property-decorator";
+import { categories, Category } from "@/config";
 import Header from "@/components/Header/Header.vue";
 import ThreadForm from "@/components/Thread/Form.vue";
 import ThreadList from "@/components/Thread/List.vue";
@@ -40,9 +40,14 @@ import ThreadList from "@/components/Thread/List.vue";
 })
 export default class BoardView extends Vue {
   get category() {
-    return config.categories.find(
-      category => category.board === this.$route.params.category
-    );
+    return categories.find(cat => cat.board === this.$route.params.category);
+  }
+
+  @Watch("category", { immediate: true })
+  onCategoryChange(category?: Category) {
+    if (!category) {
+      this.$router.push("/error");
+    }
   }
 }
 </script>
