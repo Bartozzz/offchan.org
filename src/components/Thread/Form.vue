@@ -1,7 +1,7 @@
 <template>
   <b-form>
     <b-row class="h-100" align-v="center">
-      <b-col>
+      <b-col lg="6" md="7" sm="12">
         <b-form-group
           label="Name:"
           label-for="name"
@@ -15,9 +15,9 @@
         <b-form-group
           label="File:"
           label-for="file"
-          description="File is required. Accepted files: PNG, JPG, GIF, …"
+          description="File is optional. Accepted file types: PNG, JPG, GIF, …"
         >
-          <b-form-file id="file" placeholder="Choose a file..." required />
+          <b-form-file id="file" placeholder="Choose a file..." />
         </b-form-group>
       </b-col>
     </b-row>
