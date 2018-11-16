@@ -19,7 +19,7 @@
     </b-container>
 
     <b-container>
-      Board page
+      <ThreadList></ThreadList>
     </b-container>
   </div>
 </template>
@@ -29,11 +29,13 @@ import { Component, Vue } from "vue-property-decorator";
 import * as config from "@/config";
 import Header from "@/components/Header/Header.vue";
 import ThreadForm from "@/components/Thread/Form.vue";
+import ThreadList from "@/components/Thread/List.vue";
 
 @Component({
   components: {
     Header,
-    ThreadForm
+    ThreadForm,
+    ThreadList
   }
 })
 export default class BoardView extends Vue {

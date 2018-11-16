@@ -23,6 +23,10 @@ $body-color: $white;
 $link-color: theme-color("primary");
 $link-hover-color: darken($link-color, 15%);
 
+// Cards:
+$card-border-width: 0;
+$card-bg: theme-color("dark");
+
 // Forms
 $input-bg: theme-color("dark");
 $input-disabled-bg: $gray-200 !default;
