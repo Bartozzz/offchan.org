@@ -5,7 +5,7 @@
     <b-container>
       <b-jumbotron bg-variant="black" text-variant="white" class="jumbotron">
         <template slot="header">
-          /{{ category.board }}/ – {{ category.name }}
+          /{{ category.board }}/ <span class="d-none d-md-inline">– {{ category.name }}</span>
         </template>
 
         <template slot="lead">
