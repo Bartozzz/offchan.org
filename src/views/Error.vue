@@ -1,6 +1,9 @@
 <template>
   <div class="error">
-    <p class="error-message">An error occurred…</p>
+    <div class="error-container">
+      <p class="error-message">Error. Killing process…</p>
+      <router-link class="error-button" to="/">Reboot</router-link>
+    </div>
   </div>
 </template>
 
@@ -13,11 +16,9 @@ export default class ErrorView extends Vue {}
 
 <style lang="scss" scoped>
 .error {
-  position: relative;
-
   display: flex;
   flex-direction: column;
-  align-content: center;
+  align-items: center;
   justify-content: center;
 
   // background-image: url(../assets/error/error-1.gif);
@@ -42,28 +43,56 @@ export default class ErrorView extends Vue {}
     content: "";
   }
 
-  &-message {
-    padding: 1rem 2rem;
-    margin: 0 auto;
+  &-container {
+    padding: 1rem;
 
-    font-size: 3rem;
-    max-width: 500px;
+    max-width: 530px;
+  }
+
+  &-message {
+    position: relative;
+
+    padding: 1rem 2rem;
+
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
 
     background-color: #cb5f75;
     color: #ffffff;
 
     // Glitch on text:
-    &:after {
-      position: absolute;
-      top: 0;
-      left: 0;
+    // &:after {
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //
+    //   width: 100%;
+    //   height: 100%;
+    //
+    //   background-image: url(../assets/error/error-3.gif);
+    //
+    //   content: "";
+    // }
+  }
 
-      width: 100%;
-      height: 100%;
+  &-button {
+    float: right;
 
-      background-image: url(../assets/error/error-3.gif);
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
 
-      content: "";
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+
+    border-width: 4px;
+    border-style: solid;
+    border-color: #cb5f75;
+    color: #ffffff;
+
+    &:hover {
+      background-color: #cb5f75;
     }
   }
 }
