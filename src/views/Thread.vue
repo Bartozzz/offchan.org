@@ -1,5 +1,5 @@
 <template>
-  <div class="view">
+  <main class="view">
     <Header></Header>
 
     <b-container>
@@ -18,19 +18,23 @@
 
         {{ thread.content }}
       </ThreadPost>
+
+      <CommentForm></CommentForm>
     </b-container>
-  </div>
+  </main>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Header from "@/components/Header/Header.vue";
 import ThreadPost from "@/components/Thread/Post.vue";
+import CommentForm from "@/components/Comments/Form.vue";
 
 @Component({
   components: {
     Header,
-    ThreadPost
+    ThreadPost,
+    CommentForm
   }
 })
 export default class ThreadView extends Vue {
