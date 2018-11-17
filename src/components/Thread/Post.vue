@@ -20,8 +20,8 @@
 
       <b-card-footer>
         <section class="text-right">
-          <router-link :to="`/thread/${guid}`" class="card-link">View</router-link>
-          <router-link :to="`/thread/${guid}`" class="card-link">Reply</router-link>
+          <router-link :to="`/board/${board}/${guid}`" class="card-link">View</router-link>
+          <router-link :to="`/board/${board}/${guid}`" class="card-link">Reply</router-link>
         </section>
       </b-card-footer>
     </b-card>
@@ -41,6 +41,7 @@ import CommentsList from "@/components/Comments/List.vue";
 })
 export default class ThreadPost extends Vue {
   @Prop(String) guid!: string;
+  @Prop(String) board!: string;
   @Prop(Array) comments!: Array<Object>;
 }
 </script>

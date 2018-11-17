@@ -1,44 +1,46 @@
 <template>
-  <main class="view">
-    <Header></Header>
+  <b-container>
+    <ThreadPost :board="board" :guid="thread" :comments="data.comments" class="full-thread">
+      <template slot="author">
+        {{ data.author || "Anon" }}
+      </template>
 
-    <b-container>
-      <ThreadPost :guid="thread.id" :comments="thread.comments" class="full-thread">
-        <template slot="author">
-          {{ thread.author || "Anon" }}
-        </template>
+      <template slot="upload-file">
+        <b-card-img :src="data.image" alt="Thread image" />
+      </template>
 
-        <template slot="upload-file">
-          <b-card-img :src="thread.image" alt="Thread image" />
-        </template>
+      <template slot="upload-name">
+        {{ data.image }}
+      </template>
 
-        <template slot="upload-name">
-          {{ thread.image }}
-        </template>
+      {{ data.content }}
+    </ThreadPost>
 
-        {{ thread.content }}
-      </ThreadPost>
-
-      <CommentForm></CommentForm>
-    </b-container>
-  </main>
+    <CommentForm></CommentForm>
+  </b-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Header from "@/components/Header/Header.vue";
 import ThreadPost from "@/components/Thread/Post.vue";
 import CommentForm from "@/components/Comments/Form.vue";
 
 @Component({
   components: {
-    Header,
     ThreadPost,
     CommentForm
   }
 })
 export default class ThreadView extends Vue {
-  thread = {
+  get board() {
+    return this.$route.params.board;
+  }
+
+  get thread() {
+    return this.$route.params.thread;
+  }
+
+  data = {
     id: "guid-1",
     date: +new Date(),
     image: "https://arisuchan.jp/q/src/1504811384320.png",
