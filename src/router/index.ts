@@ -13,22 +13,29 @@ export default new Router({
     },
 
     {
-      path: "/board/:category",
+      path: "/board/:board",
       name: "board",
       component: () =>
-        import(/* webpackChunkName: "board" */ "../views/Board.vue")
+        import(/* webpackChunkName: "board" */ "../views/Board.vue"),
+
+      children: [
+        {
+          path: "",
+          name: "threadList",
+          component: () =>
+            import(/* webpackChunkName: "threads" */ "../views/Threads.vue")
+        },
+        {
+          path: ":thread",
+          name: "threadFull",
+          component: () =>
+            import(/* webpackChunkName: "thread" */ "../views/Thread.vue")
+        }
+      ]
     },
 
     {
-      path: "/thread/:uid",
-      name: "thread",
-      component: () =>
-        import(/* webpackChunkName: "thread" */ "../views/Thread.vue")
-    },
-
-    {
-      alias: "*",
-      path: "/error",
+      path: "*",
       name: "error",
       component: () =>
         import(/* webpackChunkName: "error" */ "../views/Error.vue")

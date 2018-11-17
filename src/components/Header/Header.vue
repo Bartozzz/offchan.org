@@ -1,13 +1,17 @@
 <template>
   <b-navbar toggleable="md" type="dark" variant="black">
-    <b-navbar-brand tag="router-link" to="/">
+    <a @click.prevent="$router.go(-1)" class="back" :class="{ 'is-visible': showBack }">
+      &lsaquo;
+    </a>
+
+    <b-navbar-brand tag="router-link" to="/" class="logo">
       <img class="logo-img" src="../../assets/os.gif" />
       <span class="logo-txt" data-text="Offchan">Offchan</span>
     </b-navbar-brand>
 
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
     <b-collapse is-nav id="nav_collapse">
-      <b-navbar-nav>
+      <b-navbar-nav class="ml-auto">
         <b-nav-item
           v-for="(category, index) in categories"
           tag="router-link"
@@ -20,20 +24,19 @@
           <span class="category-description">{{ category.description }}</span>
         </b-nav-item>
       </b-navbar-nav>
-
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
-      </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import * as config from "@/config";
 
 @Component({})
 export default class Header extends Vue {
+  @Prop({ type: Boolean, default: false })
+  showBack!: boolean;
+
   categories = config.categories;
 }
 </script>
@@ -48,6 +51,27 @@ $glitch-color-a: black;
 $glitch-color-b: black;
 $glitch-width: 70;
 $glitch-height: 30;
+
+.back {
+  padding: 0 1.25rem 0 0.75rem;
+  margin: -5px 0 0 0;
+
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 350ms ease;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 
 .logo {
   &-img {

@@ -1,7 +1,7 @@
 <template>
   <ul class="threads">
     <li v-for="(thread, index) in threads" :key="index" class="thread">
-      <ThreadPost :guid="thread.id" :comments="thread.comments">
+      <ThreadPost :board="board" :guid="thread.id" :comments="thread.comments">
         <template slot="author">
           {{ thread.author || "Anon" }}
         </template>
@@ -30,6 +30,10 @@ import ThreadPost from "./Post.vue";
   }
 })
 export default class ThreadList extends Vue {
+  get board() {
+    return this.$route.params.board;
+  }
+
   threads = [
     {
       id: "guid-1",
