@@ -16,7 +16,7 @@
       {{ data.content }}
     </ThreadPost>
 
-    <CommentForm></CommentForm>
+    <CommentForm :board="board" :guid="thread"></CommentForm>
   </b-container>
 </template>
 
