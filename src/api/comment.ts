@@ -1,4 +1,4 @@
-export interface CommentSchema {
+export interface ThreadSchema {
   thread: string;
   author?: string;
   content: string;
