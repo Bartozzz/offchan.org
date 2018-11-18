@@ -37,7 +37,9 @@ export default class Header extends Vue {
   @Prop({ type: Boolean, default: false })
   showBack!: boolean;
 
-  categories = config.categories;
+  get categories() {
+    return this.$store.getters.categories;
+  }
 }
 </script>
 
