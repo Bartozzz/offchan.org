@@ -1,29 +1,77 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <section class="offline" v-if="!isOnline">
+      You are offline.
+    </section>
+
     <router-view/>
   </div>
 </template>
 
+<script lang="ts">
+import { Component as VueComponent } from "vue";
+import { Component, Vue, Prop } from "vue-property-decorator";
+
+@Component({})
+export default class App extends Vue {
+  isOnline = true;
+
+  errorCaptured(err: Error, vm: VueComponent, info: string) {
+    // TODO: send logs somewhere
+    console.error(err);
+    console.error(info);
+
+    this.$router.push("/error");
+  }
+
+  created() {
+    this.$on("online", () => {
+      this.isOnline = true;
+    });
+
+    this.$on("offline", () => {
+      this.isOnline = false;
+    });
+  }
+}
+</script>
+
+
 <style lang="scss">
+*,
+*:before,
+*:after {
+  /* Make transparent link selection, adjust last value opacity 0 to 1.0 */
+  -webkit-tap-highlight-color: rgba(black, 0);
+}
+
 #app {
+  position: absolute;
+
+  height: 100%;
+  width: 100%;
+
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+
+  /* Prevent callout to copy image, etc when tap to hold */
+  -webkit-touch-callout: none;
+
+  /* Prevent webkit from resizing text to fit */
+  -webkit-text-size-adjust: none;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+
+.offline {
+  padding: 0.25rem 0;
+  margin: 0;
+
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+
+  background-color: #cb5f75;
 }
 </style>
