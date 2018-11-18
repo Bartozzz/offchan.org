@@ -1,4 +1,5 @@
 import Vue from "vue";
+// @ts-ignore
 import VueOffline from "vue-offline";
 import VueBootstrap from "bootstrap-vue";
 import App from "./App.vue";
