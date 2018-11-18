@@ -9,11 +9,20 @@
 </template>
 
 <script lang="ts">
+import { Component as VueComponent } from "vue";
 import { Component, Vue, Prop } from "vue-property-decorator";
 
 @Component({})
 export default class App extends Vue {
   isOnline = true;
+
+  errorCaptured(err: Error, vm: VueComponent, info: string) {
+    // TODO: send logs somewhere
+    console.error(err);
+    console.error(info);
+
+    this.$router.push("/error");
+  }
 
   created() {
     this.$on("online", () => {
