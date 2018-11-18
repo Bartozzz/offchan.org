@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { nameStore, formStore } from "@/store/local";
 
 type MaybeString = string | null;
@@ -40,6 +40,13 @@ interface FormData {
 
 @Component({})
 export default class CommentForm extends Vue {
+  @Prop(String) guid!: string;
+  @Prop(String) board!: string;
+
+  get uniqueCommentID() {
+    return `${this.board}-${this.guid}`;
+  }
+
   form: FormData = {
     name: null,
     file: null,
@@ -47,7 +54,7 @@ export default class CommentForm extends Vue {
   };
 
   storeData(data: FormData) {
-    formStore.setItem<MaybeString>("comment-form", data.content);
+    formStore.setItem<MaybeString>(this.uniqueCommentID, data.content);
 
     if (data.name) {
       nameStore.setItem<MaybeString>("name", data.name);
@@ -70,12 +77,13 @@ export default class CommentForm extends Vue {
     }
   }
 
-  created() {
+  @Watch("uniqueCommentID", { immediate: true })
+  onThreadChange() {
     nameStore.getItem<MaybeString>("name").then(name => {
       this.form.name = name;
     });
 
-    formStore.getItem<MaybeString>("comment-form").then(content => {
+    formStore.getItem<MaybeString>(this.uniqueCommentID).then(content => {
       this.form.content = content;
     });
   }
