@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { nameStore, formStore } from "@/store/local";
 
 type MaybeString = string | null;
@@ -48,14 +48,20 @@ interface FormData {
 
 @Component({})
 export default class ThreadForm extends Vue {
+  @Prop(String) board!: string;
+
   form: FormData = {
     name: null,
     file: null,
     content: null
   };
 
+  get uniqueBoardID() {
+    return this.board;
+  }
+
   storeData(data: FormData) {
-    formStore.setItem<MaybeString>("thread-form", data.content);
+    formStore.setItem<MaybeString>(this.uniqueBoardID, data.content);
 
     if (data.name) {
       nameStore.setItem<MaybeString>("name", data.name);
@@ -78,12 +84,13 @@ export default class ThreadForm extends Vue {
     }
   }
 
-  created() {
+  @Watch("uniqueBoardID", { immediate: true })
+  onBoardChange() {
     nameStore.getItem<MaybeString>("name").then(name => {
       this.form.name = name;
     });
 
-    formStore.getItem<MaybeString>("thread-form").then(content => {
+    formStore.getItem<MaybeString>(this.uniqueBoardID).then(content => {
       this.form.content = content;
     });
   }

@@ -11,7 +11,7 @@
 
       <hr class="my-4">
 
-      <ThreadForm></ThreadForm>
+      <ThreadForm :board="category.board"></ThreadForm>
     </b-jumbotron>
 
     <ThreadList></ThreadList>
