@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { firebaseMutations } from "vuexfire";
 
 import thread from "./modules/thread";
 import category from "./modules/category";
@@ -13,5 +14,6 @@ export default new Vuex.Store({
   modules: {
     thread,
     category
-  }
+  },
+  mutations: firebaseMutations
 });
