@@ -26,7 +26,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import * as config from "@/config";
 
 @Component({})
 export default class HomeView extends Vue {
