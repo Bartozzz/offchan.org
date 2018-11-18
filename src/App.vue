@@ -1,8 +1,32 @@
 <template>
   <div id="app">
+    <section class="offline" v-if="!isOnline">
+      You are offline.
+    </section>
+
     <router-view/>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
+
+@Component({})
+export default class App extends Vue {
+  isOnline = true;
+
+  created() {
+    this.$on("online", () => {
+      this.isOnline = true;
+    });
+
+    this.$on("offline", () => {
+      this.isOnline = false;
+    });
+  }
+}
+</script>
+
 
 <style lang="scss">
 *,
@@ -27,5 +51,18 @@
 
   /* Prevent webkit from resizing text to fit */
   -webkit-text-size-adjust: none;
+}
+
+.offline {
+  padding: 0.25rem 0;
+  margin: 0;
+
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+
+  background-color: #cb5f75;
 }
 </style>
