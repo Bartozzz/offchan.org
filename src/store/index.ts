@@ -8,7 +8,13 @@ Vue.use(Vuex);
 
 export default new Vuex.Store<State>({
   state: initialState,
-  getters: {},
+  getters: {
+    categories(state) {
+      return Object.entries(state.boards).map(
+        ([board, { name, description }]) => ({ board, name, description })
+      )
+    }
+  },
   mutations: {},
   actions: {}
 });
