@@ -23,7 +23,9 @@ export default class BoardView extends Vue {
   }
 
   get board() {
-    return categories.find(cat => cat.board === this.$route.params.board);
+    return this.$store.getters.categories.find(
+      cat => cat.board === this.$route.params.board
+    );
   }
 
   @Watch("board", { immediate: true })
