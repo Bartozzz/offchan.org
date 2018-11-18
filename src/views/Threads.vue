@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import { Category } from "@/config";
+import { Category } from "@/store/types";
 import ThreadForm from "@/components/Thread/Form.vue";
 import ThreadList from "@/components/Thread/List.vue";
 

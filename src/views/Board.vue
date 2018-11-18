@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import { Category } from "@/config";
+import { Category } from "@/store/types";
 import Header from "@/components/Header/Header.vue";
 
 @Component({

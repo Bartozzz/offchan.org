@@ -2,8 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import initialState from "./initialState";
-import { State } from "./types";
-import { Category } from '@/config';
+import { State, Category } from "./types";
 
 Vue.use(Vuex);
 

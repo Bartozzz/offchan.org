@@ -24,3 +24,9 @@ export interface Comment {
   author: string;
   content: string;
 }
+
+export interface Category {
+  board: string;
+  name: string;
+  description: string;
+}
