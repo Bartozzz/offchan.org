@@ -30,7 +30,9 @@ import * as config from "@/config";
 
 @Component({})
 export default class HomeView extends Vue {
-  categories = config.categories;
+  get categories() {
+    return this.$store.getters.categories;
+  }
 }
 </script>
 
