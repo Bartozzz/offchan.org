@@ -32,7 +32,9 @@ import ThreadList from "@/components/Thread/List.vue";
 })
 export default class ThreadsView extends Vue {
   get category() {
-    return categories.find(cat => cat.board === this.$route.params.board);
+    return this.$store.getters.categories.find(
+      cat => cat.board === this.$route.params.board
+    );
   }
 
   @Watch("category", { immediate: true })
