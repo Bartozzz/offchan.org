@@ -8,25 +8,19 @@ export class InstallPrompt extends Vue {
     return Boolean(this.deferredPrompt);
   }
 
-  onBeforeInstallPrompt(event: Event) {
+  onCanShowPrompt = (event: Event) => {
     // Prevent Chrome 67 and earlier from automatically showing the prompt:
     event.preventDefault();
     event.stopPropagation();
 
     this.deferredPrompt = event;
-  }
+  };
 
   created() {
-    window.addEventListener(
-      "beforeinstallprompt",
-      this.onBeforeInstallPrompt.bind(this)
-    );
+    window.addEventListener("beforeinstallprompt", this.onCanShowPrompt);
   }
 
   beforeDestroy() {
-    window.removeEventListener(
-      "beforeinstallprompt",
-      this.onBeforeInstallPrompt.bind(this)
-    );
+    window.removeEventListener("beforeinstallprompt", this.onCanShowPrompt);
   }
 }
