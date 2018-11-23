@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import ThreadPost from "@/components/Thread/Post.vue";
 import CommentForm from "@/components/Comments/Form.vue";
 import { State, BoardNames } from '@/store/types';
@@ -47,6 +47,23 @@ export default class ThreadView extends Vue {
   get threadData() {
     return (<State>this.$store.state).threads[this.board]
       .find(thread => thread.guid === this.threadGuid);
+  }
+
+  mounted() {
+    this.onThreadChange();
+  }
+
+  @Watch('board')
+  @Watch('threadGuid')
+  onThreadChange() {
+    if (this.threadData === undefined) {
+      this.$store.dispatch('fetchThreadsOnce', { board: this.board })
+        .then(() => {
+          if (this.threadData === undefined) {
+            this.$router.push('/error');
+          }
+        })
+    }
   }
 }
 </script>
