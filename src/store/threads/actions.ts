@@ -18,7 +18,6 @@ export const threadActions: ActionTree<State, {}> = {
       .orderBy("createdAt", "desc")
       .onSnapshot(
         snapshot => {
-          console.log("snapshot size: ", snapshot.size);
           if (snapshot.size === state.threads[board].length) {
             return;
           }

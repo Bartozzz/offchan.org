@@ -72,7 +72,6 @@ export default class ThreadForm extends Vue {
     if (!this.form.content) {
       return;
     }
-    console.log("Sending thread", data);
     this.$store.dispatch("createThread", {
       ...data,
       board: this.uniqueBoardID
