@@ -9,6 +9,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store<State>({
   state: getInitialState(),
-  mutations: { ...threadMutations },
+  mutations: {
+    ...threadMutations,
+    unsubscribe(state, newUnsubscribe) {
+      if (state.unsubscribe) {
+        state.unsubscribe();
+      }
+      state.unsubscribe = newUnsubscribe;
+    }
+  },
   actions: { ...threadActions }
 });
