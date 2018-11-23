@@ -39,7 +39,9 @@ export default class ThreadsView extends Vue {
   onCategoryChange(category?: Category) {
     if (!category) {
       this.$router.push("/error");
+      return;
     }
+    this.$store.dispatch("fetchThreads", { board: category.board });
   }
 }
 </script>
