@@ -1,0 +1,41 @@
+.prompt {
+  position: fixed;
+  bottom: 0;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  width: 100%;
+  height: auto;
+
+  padding: 1rem;
+  margin: 0;
+
+  background-color: black;
+
+  & > p,
+  & > button {
+    font-family: "Roboto Mono", monospace;
+
+    margin: 0;
+    padding: 0;
+  }
+
+  & > p {
+    color: #ccc;
+  }
+
+  & > button {
+    background-color: black;
+    border-color: black;
+    color: white;
+
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

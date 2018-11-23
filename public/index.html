@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" vocab="http://schema.org" itemtype="http://schema.org/WebPage" itemscope>
-
+<html lang="en" vocab="https://schema.org" itemtype="https://schema.org/WebPage" itemscope>
   <head>
     <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="…" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no, minimal-ui" />
-    <meta name="robots" content="noindex" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no, minimal-ui" />
 
     <link rel="manifest" href="/manifest.json" />
-    <link rel="index" title="Home" href="https://offchan.org/" />
-    <link rel="canonical" href="https://offchan.org/" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <link rel="canonical" href="https://offchan.org/" />
+    <link rel="index" title="Home" href="https://offchan.org/" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono" />
 
     <title itemprop="name">Offchan</title>
   </head>
@@ -27,7 +27,16 @@
 
     <div id="app"></div>
 
+    <div id="upgrade-pop" class="prompt" style="display: none">
+      <p>There's a new version of Copland OS.</p>
+      <button id="upgrade-btn">Upgrade</button>
+    </div>
+
+    <div id="install-pop" class="prompt" style="display: none">
+      <p>Do you want to install Offchan on your NAVI?</p>
+      <button id="install-btn">Opt</button>
+    </div>
+
     <!-- Built files will be auto injected -->
   </body>
-
 </html>

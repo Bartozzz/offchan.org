@@ -1,3 +1,10 @@
+# HTTPS certs
+_localhost.crt
+_localhost.csr
+_localCA.key
+_localhost.key
+_localCA.pem
+
 .DS_Store
 node_modules
 /dist
