@@ -7,7 +7,18 @@
           label-for="name"
           description="Name is optional. If you left this field empty, you'll post anonymously."
         >
-          <b-form-input v-model="form.name" id="name" type="text" placeholder="Enter your name…" />
+          <b-form-input
+            v-model="form.name"
+            :state="getFieldState('name')"
+            id="name"
+            type="text"
+            placeholder="Enter your name…"
+            aria-describedby="name-feedback"
+          />
+
+          <b-form-invalid-feedback id="name-feedback">
+            {{ errors.name }}
+          </b-form-invalid-feedback>
         </b-form-group>
       </b-col>
 
@@ -17,7 +28,17 @@
           label-for="file"
           description="File is optional. Accepted file types: PNG, JPG, GIF, …"
         >
-          <b-form-file v-model="form.file" id="file" placeholder="Choose a file..." />
+          <b-form-file
+            v-model="form.file"
+            :state="getFieldState('file')"
+            id="file"
+            placeholder="Choose a file..."
+            aria-describedby="file-feedback"
+          />
+
+          <b-form-invalid-feedback id="file-feedback">
+            {{ errors.file }}
+          </b-form-invalid-feedback>
         </b-form-group>
       </b-col>
     </b-row>
@@ -26,7 +47,20 @@
       label="Message:"
       label-for="content"
     >
-      <b-form-textarea v-model="form.content" id="content" rows="3" max-rows="6" placeholder="Enter your message…" />
+      <b-form-textarea
+        v-model="form.content"
+        :state="getFieldState('content')"
+        @keyup.enter.native="onSubmit"
+        id="content"
+        rows="3"
+        max-rows="6"
+        placeholder="Enter your message…"
+        aria-describedby="content-feedback"
+      />
+
+      <b-form-invalid-feedback id="content-feedback">
+        {{ errors.content }}
+      </b-form-invalid-feedback>
     </b-form-group>
 
     <b-button class="float-right" type="submit" variant="primary">Post</b-button>
@@ -36,9 +70,16 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { nameStore, formStore } from "@/store/local";
+import { normalizeString } from "@/helpers/validators";
 
-type MaybeString = string | null;
-type MaybeFile = File | null;
+type MaybeString = string | null | void;
+type MaybeFile = File | null | void;
+
+interface FormErrors {
+  file: MaybeString;
+  name: MaybeString;
+  content: MaybeString;
+}
 
 interface FormData {
   file: MaybeFile;
@@ -50,6 +91,12 @@ interface FormData {
 export default class ThreadForm extends Vue {
   @Prop(String) board!: string;
 
+  errors: FormErrors = {
+    name: null,
+    file: null,
+    content: null
+  };
+
   form: FormData = {
     name: null,
     file: null,
@@ -58,6 +105,36 @@ export default class ThreadForm extends Vue {
 
   get uniqueBoardID() {
     return this.board;
+  }
+
+  // Returns undefined if there's no error for a field:
+  getFieldState(field: keyof FormErrors) {
+    if (this.errors[field]) {
+      return false;
+    }
+  }
+
+  resetErrors() {
+    this.errors.content = null;
+    this.errors.file = null;
+    this.errors.name = null;
+  }
+
+  resetForm() {
+    this.form.content = null;
+    this.form.file = null;
+
+    // NOTE: don't clear name since it should be persistent for the session:
+    // this.form.name = null;
+  }
+
+  validateForm(data: FormData) {
+    if (!data.content) {
+      this.errors.content = "Message is required.";
+      return false;
+    }
+
+    return true;
   }
 
   storeData(data: FormData) {
@@ -69,23 +146,38 @@ export default class ThreadForm extends Vue {
   }
 
   sendData(data: FormData) {
-    if (!this.form.content) {
-      return;
+    if (this.validateForm(data)) {
+      this.resetErrors();
+      this.resetForm();
+
+      // Reset local storage:
+      formStore.setItem<MaybeString>(this.uniqueBoardID, null);
+
+      // Send thread:
+      this.$store.dispatch("createThread", {
+        board: this.uniqueBoardID,
+        name: data.name,
+        file: data.file,
+        content: data.content
+      });
     }
-    this.$store.dispatch("createThread", {
-      ...data,
-      board: this.uniqueBoardID
-    });
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
     event.stopPropagation();
 
+    // Normalize form data for further validation:
+    const form: FormData = {
+      content: normalizeString(this.form.content),
+      name: normalizeString(this.form.name),
+      file: this.form.file
+    };
+
     if (navigator.onLine) {
-      this.sendData({ ...this.form });
+      this.sendData(form);
     } else {
-      this.storeData({ ...this.form });
+      this.storeData(form);
     }
   }
 
