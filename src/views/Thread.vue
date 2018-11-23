@@ -1,19 +1,19 @@
 <template>
   <b-container>
-    <ThreadPost :board="board" :guid="threadGuid" :comments="data.comments" class="full-thread">
+    <ThreadPost :board="board" :guid="threadGuid" :comments="threadData.comments" class="full-thread">
       <template slot="author">
-        {{ data.author || "Anon" }}
+        {{ threadData.author || "Anon" }}
       </template>
 
       <template slot="upload-file">
-        <b-card-img :src="data.image" alt="Thread image" />
+        <b-card-img :src="threadData.image" alt="Thread image" />
       </template>
 
       <template slot="upload-name">
-        {{ data.image }}
+        {{ threadData.image }}
       </template>
 
-      {{ data.content }}
+      {{ threadData.content }}
     </ThreadPost>
 
     <CommentForm :board="board" :guid="threadGuid"></CommentForm>
@@ -40,7 +40,7 @@ export default class ThreadView extends Vue {
     return this.$route.params.thread;
   }
 
-  data = {
+  threadData = {
     id: "guid-1",
     date: +new Date(),
     image: "https://arisuchan.jp/q/src/1504811384320.png",
