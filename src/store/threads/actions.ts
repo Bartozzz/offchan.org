@@ -13,7 +13,8 @@ const commitThreads = (
   }
   const threads = snapshot.docs.map(doc => ({
     guid: doc.id,
-    ...doc.data()
+    ...doc.data(),
+    comments: []
   }));
   commit("setThreads", { board, threads });
 };
