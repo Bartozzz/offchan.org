@@ -1,7 +1,22 @@
 import { threadsCollection } from "@/api/firebase";
 import { firestore } from "firebase";
-import { ActionTree } from "vuex";
+import { ActionTree, Commit } from "vuex";
 import { State, BoardNames } from "@/store/types";
+
+const commitThreads = (
+  { commit, state }: { commit: Commit, state: State },
+  board: BoardNames
+) => (snapshot: firestore.QuerySnapshot) => {
+
+  if (snapshot.size === state.threads[board].length) {
+    return;
+  }
+  const threads = snapshot.docs.map(doc => ({
+    guid: doc.id,
+    ...doc.data()
+  }));
+  commit("setThreads", { board, threads });
+};
 
 interface createThreadDto {
   content: string;
@@ -17,16 +32,7 @@ export const threadActions: ActionTree<State, {}> = {
       .where("board", "==", board)
       .orderBy("createdAt", "desc")
       .onSnapshot(
-        snapshot => {
-          if (snapshot.size === state.threads[board].length) {
-            return;
-          }
-          const threads = snapshot.docs.map(doc => ({
-            guid: doc.id,
-            ...doc.data()
-          }));
-          commit("setThreads", { board, threads });
-        },
+        commitThreads({ commit, state }, board),
         error => {
           console.error("fetchThreads error: ", error);
         }
