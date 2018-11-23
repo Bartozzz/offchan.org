@@ -9,8 +9,9 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable no-console */
 import { Component as VueComponent } from "vue";
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 
 @Component({})
 export default class App extends Vue {
@@ -31,6 +32,12 @@ export default class App extends Vue {
 
     this.$on("offline", () => {
       this.isOnline = false;
+    });
+
+    // @ts-ignore: not sure why this is not fetching "BeforeInstallPromptEvent"
+    //             definition from "BeforeInstallPromptEvent.d.ts":
+    this.$on("canInstall", (event: BeforeInstallPromptEvent) => {
+      console.log("App can be installed");
     });
   }
 }
