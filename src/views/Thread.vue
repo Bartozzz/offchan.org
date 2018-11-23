@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <ThreadPost :board="board" :guid="thread" :comments="data.comments" class="full-thread">
+    <ThreadPost :board="board" :guid="threadGuid" :comments="data.comments" class="full-thread">
       <template slot="author">
         {{ data.author || "Anon" }}
       </template>
@@ -16,7 +16,7 @@
       {{ data.content }}
     </ThreadPost>
 
-    <CommentForm :board="board" :guid="thread"></CommentForm>
+    <CommentForm :board="board" :guid="threadGuid"></CommentForm>
   </b-container>
 </template>
 
@@ -36,7 +36,7 @@ export default class ThreadView extends Vue {
     return this.$route.params.board;
   }
 
-  get thread() {
+  get threadGuid() {
     return this.$route.params.thread;
   }
 
