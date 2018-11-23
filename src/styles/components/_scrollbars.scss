@@ -1,0 +1,27 @@
+textarea {
+  scrollbar-arrow-color: #cb5f75;
+
+  &::-webkit-scrollbar {
+    border-top-right-radius: 5px;
+  }
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+  &::-webkit-resizer {
+    color: #cb5f75;
+    border: 4px solid;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: #cb5f75;
+    border-right-color: #cb5f75;
+  }
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+  background-color: darken(#cb5f75, 50%);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: darken(#cb5f75, 30%);
+}
