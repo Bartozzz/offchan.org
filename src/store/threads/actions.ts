@@ -40,6 +40,19 @@ export const threadActions: ActionTree<State, {}> = {
       );
     commit('unsubscribe', unsubscribe);
   },
+  fetchThreadsOnce({ commit, state }, { board }: { board: BoardNames }) {
+    console.log('fetchThreadOnce');
+    return threadsCollection
+      .where("board", "==", board)
+      .orderBy("createdAt", "desc")
+      .get()
+      .then(
+        commitThreads({ commit, state }, board),
+        error => {
+          console.error("fetchThreads error: ", error);
+        }
+      );
+  },
   createThread({}, { name, content, file, board }) {
     // TODO - handle file upload
     const newThread: createThreadDto = {
