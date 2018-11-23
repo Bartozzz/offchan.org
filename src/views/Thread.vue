@@ -27,7 +27,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import ThreadPost from "@/components/Thread/Post.vue";
 import CommentForm from "@/components/Comments/Form.vue";
-import { State, BoardNames } from '@/store/types';
+import { State, BoardNames } from "@/store/types";
 
 @Component({
   components: {
@@ -53,17 +53,25 @@ export default class ThreadView extends Vue {
     this.onThreadChange();
   }
 
-  @Watch('board')
-  @Watch('threadGuid')
+  @Watch("board")
+  @Watch("threadGuid")
   onThreadChange() {
     if (this.threadData === undefined) {
-      this.$store.dispatch('fetchThreadsOnce', { board: this.board })
+      this.$store.dispatch("fetchThreadsOnce", { board: this.board })
         .then(() => {
           if (this.threadData === undefined) {
-            this.$router.push('/error');
+            this.$router.push("/error");
+          } else {
+            this.fetchComments();
           }
         })
+    } else {
+      this.fetchComments();
     }
+  }
+  
+  fetchComments() {
+    this.$store.dispatch("fetchComments", { board: this.board, threadId: this.threadGuid });
   }
 }
 </script>
