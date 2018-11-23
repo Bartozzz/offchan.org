@@ -10,17 +10,29 @@ if (process.env.NODE_ENV === "production") {
           "For more details, visit https://goo.gl/AFskqB"
       );
     },
+
     cached() {
       console.log("Content has been cached for offline use.");
     },
+
     updated() {
       console.log("New content is available; please refresh.");
+
+      const upgradePop = <HTMLElement>document.getElementById("upgrade-pop");
+      const upgradeBtn = <HTMLElement>document.getElementById("upgrade-btn");
+
+      upgradePop.style.display = "flex";
+      upgradeBtn.addEventListener("click", () => {
+        location.reload();
+      });
     },
+
     offline() {
       console.log(
         "No internet connection found. App is running in offline mode."
       );
     },
+
     error(error) {
       console.error("Error during service worker registration:", error);
     }

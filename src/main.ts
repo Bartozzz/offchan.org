@@ -2,14 +2,16 @@ import Vue from "vue";
 // @ts-ignore
 import VueOffline from "vue-offline";
 import VueBootstrap from "bootstrap-vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import { auth } from "./api/firebase";
+import PWAInstall from "@/plugins/pwa-install";
+import App from "@/App.vue";
+import router from "@/router";
+import store from "@/store";
+import { auth } from "@/api/firebase";
 
 import "./registerServiceWorker";
 import "./styles/_bootstrap.scss";
 
+Vue.use(PWAInstall);
 Vue.use(VueOffline);
 Vue.use(VueBootstrap);
 Vue.config.productionTip = false;
