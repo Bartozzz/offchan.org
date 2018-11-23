@@ -11,6 +11,7 @@ export function getInitialState(): State {
       λ: [],
       Δ: [],
       φ: []
-    }
+    },
+    unsubscribe: null
   };
 }
