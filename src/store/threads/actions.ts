@@ -29,7 +29,7 @@ interface createThreadDto {
 
 export const threadActions: ActionTree<State, {}> = {
   fetchThreads({ commit, state }, { board }: { board: BoardNames }) {
-    threadsCollection
+    const unsubscribe = threadsCollection
       .where("board", "==", board)
       .orderBy("createdAt", "desc")
       .onSnapshot(
@@ -38,6 +38,7 @@ export const threadActions: ActionTree<State, {}> = {
           console.error("fetchThreads error: ", error);
         }
       );
+    commit('unsubscribe', unsubscribe);
   },
   createThread({}, { name, content, file, board }) {
     // TODO - handle file upload
