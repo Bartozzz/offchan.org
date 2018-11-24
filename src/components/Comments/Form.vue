@@ -61,9 +61,16 @@ export default class CommentForm extends Vue {
     }
   }
 
-  sendData(data: FormData) {
-    // TODO
-    console.log("Sending comment", data);
+  sendData({ name, file, content }: FormData) {
+    if (!content) {
+      return;
+    }
+    this.$store.dispatch("createComment", {
+      threadId: this.guid,
+      name,
+      file,
+      content
+    });
   }
 
   onSubmit(event: Event) {
