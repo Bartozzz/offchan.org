@@ -1,5 +1,5 @@
 <template>
-  <b-form @submit="onSubmit">
+  <b-form @submit="onSubmit" id="reply">
     <b-row class="h-100" align-v="center">
       <b-col lg="6" md="7" sm="12">
         <b-form-group label="Optional name:" label-for="name">

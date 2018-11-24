@@ -19,7 +19,7 @@
           <router-link :to="`/board/${board}/${guid}`" class="card-link"
             >View</router-link
           >
-          <router-link :to="`/board/${board}/${guid}`" class="card-link"
+          <router-link :to="`/board/${board}/${guid}#reply`" class="card-link"
             >Reply</router-link
           >
         </section>
