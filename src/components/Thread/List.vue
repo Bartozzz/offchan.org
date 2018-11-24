@@ -7,7 +7,7 @@
         </template>
 
         <template slot="upload-file">
-          <b-card-img :src="thread.image" alt="Thread image" />
+          <b-card-img v-if="thread.image" :src="thread.image" alt="Thread image" />
         </template>
 
         <template slot="upload-name">
