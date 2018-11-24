@@ -37,9 +37,9 @@ export default class HomeView extends Vue {
 <style lang="scss" scoped>
 @import "../styles/mixins/glitch";
 
-$glitch-intensity: 5;
+$glitch-intensity: 7;
 $glitch-text-color: #c1b290;
-$glitch-background: #111111;
+$glitch-background: black;
 $glitch-color-a: black;
 $glitch-color-b: black;
 $glitch-width: 200;
