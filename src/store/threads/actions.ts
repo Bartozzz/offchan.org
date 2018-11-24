@@ -41,7 +41,6 @@ export const threadActions: ActionTree<State, {}> = {
     commit('unsubscribe', unsubscribe);
   },
   fetchThreadsOnce({ commit, state }, { board }: { board: BoardNames }) {
-    console.log('fetchThreadOnce');
     return threadsCollection
       .where("board", "==", board)
       .orderBy("createdAt", "desc")
