@@ -18,6 +18,7 @@ export const commentsActions: ActionTree<State, {}> = {
     const unsubscribe = threadsCollection
       .doc(threadId)
       .collection('comments')
+      .orderBy('createdAt', 'asc')
       .onSnapshot(snapshot => {
         const comments = snapshot.docs.map(doc => ({
           guid: doc.id,
