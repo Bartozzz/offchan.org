@@ -15,6 +15,8 @@ export default class ErrorView extends Vue {}
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/configuration/bootstrap";
+
 .error {
   display: flex;
   flex-direction: column;
@@ -24,7 +26,7 @@ export default class ErrorView extends Vue {}
   // background-image: url(../assets/error/error-1.gif);
   background-image: url(../assets/error/error-2.gif);
   // background-image: url(../assets/error/error-3.gif);
-  background-color: #111111;
+  background-color: theme-color("dark");
 
   width: 100vw;
   height: 100vh;
@@ -58,8 +60,8 @@ export default class ErrorView extends Vue {}
     font-weight: bold;
     text-align: center;
 
-    background-color: #cb5f75;
-    color: #ffffff;
+    background-color: theme-color("primary");
+    color: $body-color;
 
     // Glitch on text:
     // &:after {
@@ -88,11 +90,11 @@ export default class ErrorView extends Vue {}
 
     border-width: 4px;
     border-style: solid;
-    border-color: #cb5f75;
-    color: #ffffff;
+    border-color: theme-color("primary");
+    color: $body-color;
 
     &:hover {
-      background-color: #cb5f75;
+      background-color: theme-color("primary");
     }
   }
 }

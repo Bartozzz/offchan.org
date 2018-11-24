@@ -1,14 +1,8 @@
 // Dependencies
 @import "~bootstrap-vue/dist/bootstrap-vue.css";
 
-// Bootstrap config
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-
 // Config
 @import "./configuration/bootstrap";
-@import "./configuration/custom";
 
 // Bootstrap components
 @import "~bootstrap/scss/root";

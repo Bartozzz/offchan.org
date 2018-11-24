@@ -14,7 +14,9 @@
               :data-text="`/${category.board}/ – ${category.name}`"
               class="board"
             >
-              <span class="board-name">/{{ category.board }}/ – {{ category.name }}</span>
+              <span class="board-name"
+                >/{{ category.board }}/ – {{ category.name }}</span
+              >
               <span class="board-desc">{{ category.description }}</span>
             </router-link>
           </li>
@@ -42,7 +44,6 @@ $glitch-text-color: #c1b290;
 $glitch-background: black;
 $glitch-color-a: black;
 $glitch-color-b: black;
-$glitch-width: 200;
 $glitch-height: 50;
 
 .lain {
@@ -87,7 +88,6 @@ $glitch-height: 50;
       $glitch-background,
       $glitch-color-a,
       $glitch-color-b,
-      $glitch-width,
       $glitch-height
     );
   }

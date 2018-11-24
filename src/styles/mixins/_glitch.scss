@@ -1,4 +1,3 @@
-// Source: https://css-tricks.com/glitch-effect-text-images-svg/
 @mixin textGlitch(
   $name,
   $intensity,
@@ -6,7 +5,6 @@
   $background,
   $highlightColor1,
   $highlightColor2,
-  $width,
   $height
 ) {
   color: $textColor;
@@ -23,10 +21,10 @@
             $randomHeight1: random($height);
             $randomHeight2: random($height);
             clip-path: polygon(
-              0    #{$randomHeight1 + px},
+              0 #{$randomHeight1 + px},
               100% #{$randomHeight1 + px},
               100% #{$randomHeight2 + px},
-              0    #{$randomHeight2 + px}
+              0 #{$randomHeight2 + px}
             );
           }
         }
