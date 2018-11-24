@@ -18,8 +18,8 @@ if (process.env.NODE_ENV === "production") {
     updated() {
       console.log("New content is available; please refresh.");
 
-      const upgradePop = <HTMLElement>document.getElementById("upgrade-pop");
-      const upgradeBtn = <HTMLElement>document.getElementById("upgrade-btn");
+      const upgradePop = document.getElementById("upgrade-pop") as HTMLElement;
+      const upgradeBtn = document.getElementById("upgrade-btn") as HTMLElement;
 
       upgradePop.style.display = "flex";
       upgradeBtn.addEventListener("click", () => {
