@@ -1,8 +1,8 @@
 <template>
   <b-container fluid class="h-100">
     <b-row class="h-100" align-v="center">
-      <b-col class="d-none d-md-block">
-        <img class="lain" alt="She's watching" src="../assets/lain/1.gif" />
+      <b-col class="d-none d-lg-block">
+        <img class="w-100" alt="She's watching" src="../assets/lain/1.gif" />
       </b-col>
 
       <b-col>
@@ -14,7 +14,9 @@
               :data-text="`/${category.board}/ – ${category.name}`"
               class="board"
             >
-              <span class="board-name">/{{ category.board }}/ – {{ category.name }}</span>
+              <span class="board-name"
+                >/{{ category.board }}/ – {{ category.name }}</span
+              >
               <span class="board-desc">{{ category.description }}</span>
             </router-link>
           </li>
@@ -35,19 +37,15 @@ export default class HomeView extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/configuration/bootstrap";
 @import "../styles/mixins/glitch";
 
 $glitch-intensity: 7;
-$glitch-text-color: #c1b290;
-$glitch-background: black;
-$glitch-color-a: black;
-$glitch-color-b: black;
-$glitch-width: 200;
+$glitch-text-color: theme-color("secondary");
+$glitch-background: theme-color("black");
+$glitch-color-a: theme-color("black");
+$glitch-color-b: theme-color("black");
 $glitch-height: 50;
-
-.lain {
-  width: 100%;
-}
 
 .boards {
   display: flex;
@@ -75,9 +73,13 @@ $glitch-height: 50;
   font-size: 4.5vmin;
   font-weight: bold;
   text-decoration: none;
+  color: theme-color("primary");
 
   opacity: 0.75;
-  color: #844657;
+
+  @include media-breakpoint-down(sm) {
+    font-size: 6vmin;
+  }
 
   &:hover {
     @include textGlitch(
@@ -87,7 +89,6 @@ $glitch-height: 50;
       $glitch-background,
       $glitch-color-a,
       $glitch-color-b,
-      $glitch-width,
       $glitch-height
     );
   }
@@ -98,9 +99,10 @@ $glitch-height: 50;
   }
 
   &-desc {
-    font-size: 2vmin;
+    font-size: 1.75vmin;
+    font-family: $font-family-monospace;
 
-    opacity: 0.5;
+    opacity: 0.65;
   }
 }
 </style>

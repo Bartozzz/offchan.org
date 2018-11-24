@@ -1,6 +1,10 @@
 <template>
   <b-navbar toggleable="md" type="dark" variant="black">
-    <a @click.prevent="$router.go(-1)" class="back" :class="{ 'is-visible': showBack }">
+    <a
+      @click.prevent="$router.go(-1);"
+      class="back"
+      :class="{ 'is-visible': showBack }"
+    >
       &lsaquo;
     </a>
 
@@ -17,7 +21,7 @@
           tag="router-link"
           :key="index"
           :to="`/board/${category.board}/`"
-          :title="`${category.name} - ${category.description }`"
+          :title="`${category.name} - ${category.description}`"
         >
           <span class="category-board">/{{ category.board }}/</span>
           <span class="category-name"> - {{ category.name }}</span>
@@ -43,13 +47,13 @@ export default class Header extends Vue {
 
 <style lang="scss" scoped>
 @import "../../styles/mixins/glitch";
+@import "../../styles/configuration/bootstrap";
 
 $glitch-intensity: 5;
-$glitch-text-color: white;
-$glitch-background: #111111;
-$glitch-color-a: black;
-$glitch-color-b: black;
-$glitch-width: 70;
+$glitch-text-color: $body-color;
+$glitch-background: theme-color("dark");
+$glitch-color-a: theme-color("black");
+$glitch-color-b: theme-color("black");
 $glitch-height: 30;
 
 .back {
@@ -93,7 +97,6 @@ $glitch-height: 30;
       $glitch-background,
       $glitch-color-a,
       $glitch-color-b,
-      $glitch-width,
       $glitch-height
     );
   }
@@ -101,23 +104,23 @@ $glitch-height: 30;
 
 .category {
   &-board {
-    @media screen and (max-width: 768px - 1px) {
+    @include media-breakpoint-down(sm) {
       display: inline-block;
 
       padding: 0 0.35rem 0 1rem;
       margin: 0;
 
       font-weight: bold;
-      color: #cb5f75;
+      color: theme-color("primary");
     }
   }
 
   &-name {
     display: none;
 
-    color: #cb5f75;
+    color: theme-color("primary");
 
-    @media screen and (max-width: 768px - 1px) {
+    @include media-breakpoint-down(sm) {
       display: inline-block;
     }
   }
@@ -128,7 +131,7 @@ $glitch-height: 30;
     padding: 0 1rem;
     margin: 0;
 
-    @media screen and (max-width: 768px - 1px) {
+    @include media-breakpoint-down(sm) {
       display: block;
     }
   }

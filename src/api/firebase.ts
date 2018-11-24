@@ -1,4 +1,11 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
+
+import "firebase/auth";
+import "firebase/storage";
+import "firebase/firestore";
+import "firebase/functions";
+// import "firebase/database";
+// import "firebase/messaging";
 
 export const app = firebase.initializeApp({
   apiKey: process.env.VUE_APP_FIREBASE_API_KEY,

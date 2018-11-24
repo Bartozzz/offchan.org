@@ -13,11 +13,11 @@
   padding: 1rem;
   margin: 0;
 
-  background-color: black;
+  background-color: theme-color("black");
 
   & > p,
   & > button {
-    font-family: "Roboto Mono", monospace;
+    font-family: $font-family-monospace;
 
     margin: 0;
     padding: 0;

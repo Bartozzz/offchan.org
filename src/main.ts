@@ -17,7 +17,7 @@ Vue.use(VueBootstrap);
 Vue.config.productionTip = false;
 
 function handleAuthFailure() {
-  (<Element>document.querySelector("#app")).innerHTML = `
+  (document.querySelector("#app") as HTMLElement).innerHTML = `
     You cannot enter Offchan.
   `;
 }

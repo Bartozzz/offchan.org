@@ -43,10 +43,7 @@
       </b-col>
     </b-row>
 
-    <b-form-group
-      label="Message:"
-      label-for="content"
-    >
+    <b-form-group label="Message:" label-for="content">
       <b-form-textarea
         v-model="form.content"
         :state="getFieldState('content')"
@@ -63,7 +60,9 @@
       </b-form-invalid-feedback>
     </b-form-group>
 
-    <b-button class="float-right" type="submit" variant="primary">Post</b-button>
+    <b-button class="float-right" type="submit" variant="primary"
+      >Post</b-button
+    >
   </b-form>
 </template>
 
@@ -193,6 +192,3 @@ export default class ThreadForm extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

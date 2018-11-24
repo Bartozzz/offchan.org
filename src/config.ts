@@ -8,13 +8,13 @@ export const categories: Category[] = [
   {
     board: "cyb",
     name: "Cyberia",
-    description: "Random. Low life. High tech. Anonymity. Privacy. Security."
+    description: "Random. Low life. High tech. Anonymity. Security."
   },
 
   {
     board: "psy",
     name: "Psychology",
-    description: "Dreams. Drgs. Consciousness. Feelings and experiences."
+    description: "Dreams. Drgs. Consciousness. Feelings. Experiences."
   },
 
   {
@@ -26,7 +26,7 @@ export const categories: Category[] = [
   {
     board: "cult",
     name: "Culture & Media",
-    description: "Anime. Fashion. Films. Games. Lifestyle. Lliterature. Music."
+    description: "Anime. Films. Games. Lifestyle. Literature. Music."
   },
 
   {
@@ -44,7 +44,7 @@ export const categories: Category[] = [
   {
     board: "Δ",
     name: "Projects",
-    description: "Do-it-yourself. Hardware, Software and Community Projects."
+    description: "DIY. Hardware, Software and Community Projects."
   },
 
   {
