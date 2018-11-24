@@ -7,7 +7,7 @@
         </template>
 
         <template slot="upload-file">
-          <b-card-img :src="comment.image" alt="Comment image" />
+          <b-card-img v-if="comment.image" :src="comment.image" alt="Comment image" />
         </template>
 
         {{ comment.content }}

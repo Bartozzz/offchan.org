@@ -6,7 +6,7 @@
       </template>
 
       <template slot="upload-file">
-        <b-card-img :src="threadData.image" alt="Thread image" />
+        <b-card-img v-if="threadData.image" :src="threadData.image" alt="Thread image" />
       </template>
 
       <template slot="upload-name">
@@ -45,8 +45,11 @@ export default class ThreadView extends Vue {
   }
 
   get threadData() {
-    return (<State>this.$store.state).threads[this.board]
-      .find(thread => thread.guid === this.threadGuid);
+    const state = this.$store.state as State;
+
+    return state.threads[this.board].find(
+      thread => thread.guid === this.threadGuid
+    );
   }
 
   mounted() {
@@ -57,21 +60,25 @@ export default class ThreadView extends Vue {
   @Watch("threadGuid")
   onThreadChange() {
     if (this.threadData === undefined) {
-      this.$store.dispatch("fetchThreadsOnce", { board: this.board })
+      this.$store
+        .dispatch("fetchThreadsOnce", { board: this.board })
         .then(() => {
           if (this.threadData === undefined) {
             this.$router.push("/error");
           } else {
             this.fetchComments();
           }
-        })
+        });
     } else {
       this.fetchComments();
     }
   }
-  
+
   fetchComments() {
-    this.$store.dispatch("fetchComments", { board: this.board, threadId: this.threadGuid });
+    this.$store.dispatch("fetchComments", {
+      board: this.board,
+      threadId: this.threadGuid
+    });
   }
 }
 </script>
