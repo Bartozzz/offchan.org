@@ -20,11 +20,13 @@
       @keyframes #{$name}-anim-#{$i} {
         @for $i from 0 through $steps {
           #{percentage($i*(1/$steps))} {
-            clip: rect(
-              random($height) + px,
-              $width + px,
-              random($height) + px,
-              0
+            $randomHeight1: random($height);
+            $randomHeight2: random($height);
+            clip-path: polygon(
+              0    #{$randomHeight1 + px},
+              100% #{$randomHeight1 + px},
+              100% #{$randomHeight2 + px},
+              0    #{$randomHeight2 + px}
             );
           }
         }
@@ -39,7 +41,6 @@
     left: 0;
     width: 100%;
     background: $background;
-    clip: rect(0, 0, 0, 0);
   }
   &:after {
     left: 2px;
