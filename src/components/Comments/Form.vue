@@ -26,6 +26,7 @@
             id="file"
             placeholder="Choose a file (optional)..."
             aria-describedby="file-feedback"
+            disabled
           />
 
           <b-form-invalid-feedback id="file-feedback">
