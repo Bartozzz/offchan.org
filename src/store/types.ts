@@ -4,6 +4,7 @@ export interface State {
   threads: {
     [BoardName in BoardNames]: Thread[]
   };
+  unsubscribe: (() => any) | null;
 }
 
 export interface Thread {

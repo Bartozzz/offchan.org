@@ -26,7 +26,7 @@
       </b-card-footer>
     </b-card>
 
-    <CommentsList :data="comments" />
+    <CommentsList :data="comments" v-if="this.$route.name === 'threadFull'" />
   </div>
 </template>
 

@@ -18,4 +18,3 @@ database.settings({
 });
 
 export const threadsCollection = database.collection("threads");
-export const commentsCollection = database.collection("comments");
