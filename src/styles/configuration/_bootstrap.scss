@@ -4,12 +4,13 @@
 
 // Fonts:
 $font-family-sans-serif: "Avenir", $font-family-sans-serif;
+$font-family-monospace: "Roboto Mono", $font-family-monospace;
 $font-family-base: $font-family-sans-serif;
 
 // Theme:
 $theme-colors: (
   "primary": #cb5f75,
-  "secondary": $secondary,
+  "secondary": #c1b290,
   "success": $success,
   "info": $info,
   "warning": $warning,
