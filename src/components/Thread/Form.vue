@@ -1,5 +1,5 @@
 <template>
-  <b-form @submit="onSubmit">
+  <b-form @submit.prevent="onSubmit">
     <b-row class="h-100" align-v="center">
       <b-col lg="6" md="7" sm="12">
         <b-form-group
@@ -48,7 +48,7 @@
       <b-form-textarea
         v-model="form.content"
         :state="getFieldState('content')"
-        @keyup.enter.native="onSubmit"
+        @keyup.enter.exact.native="onSubmit"
         id="content"
         rows="3"
         max-rows="6"
@@ -164,9 +164,6 @@ export default class ThreadForm extends Vue {
   }
 
   onSubmit(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
-
     // Normalize form data for further validation:
     const form: FormData = {
       content: normalizeString(this.form.content),
