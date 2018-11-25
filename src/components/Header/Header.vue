@@ -8,7 +8,7 @@
       &lsaquo;
     </a>
 
-    <b-navbar-brand tag="router-link" to="/" class="logo">
+    <b-navbar-brand to="/" exact class="logo">
       <img class="logo-img" src="../../assets/os.gif" />
       <span class="logo-txt" data-text="Offchan">Offchan</span>
     </b-navbar-brand>
@@ -18,7 +18,6 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item
           v-for="(category, index) in categories"
-          tag="router-link"
           class="category"
           :key="index"
           :to="`/board/${category.board}/`"
