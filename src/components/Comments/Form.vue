@@ -1,5 +1,5 @@
 <template>
-  <b-form @submit="onSubmit" id="reply">
+  <b-form @submit.prevent="onSubmit" id="reply">
     <b-row class="h-100" align-v="center">
       <b-col lg="6" md="7" sm="12">
         <b-form-group label="Optional name:" label-for="name">
@@ -40,7 +40,7 @@
       <b-form-textarea
         v-model="form.content"
         :state="getFieldState('content')"
-        @keyup.enter.native="onSubmit"
+        @keyup.enter.exact.native="onSubmit"
         id="content"
         rows="3"
         max-rows="6"
@@ -132,10 +132,6 @@ export default class CommentForm extends Vue {
 
   storeData(data: FormData) {
     formStore.setItem<MaybeString>(this.uniqueCommentID, data.content);
-
-    if (data.name) {
-      nameStore.setItem<MaybeString>("name", data.name);
-    }
   }
 
   sendData(data: FormData) {
@@ -157,15 +153,17 @@ export default class CommentForm extends Vue {
   }
 
   onSubmit(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
-
     // Normalize form data for further validation:
     const form: FormData = {
       content: normalizeString(this.form.content),
       name: normalizeString(this.form.name),
       file: this.form.file
     };
+
+    // Form name is always persistent, no matter if user is online or not:
+    if (form.name) {
+      nameStore.setItem<MaybeString>("name", form.name);
+    }
 
     if (navigator.onLine) {
       this.sendData(form);
