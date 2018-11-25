@@ -139,10 +139,6 @@ export default class ThreadForm extends Vue {
 
   storeData(data: FormData) {
     formStore.setItem<MaybeString>(this.uniqueBoardID, data.content);
-
-    if (data.name) {
-      nameStore.setItem<MaybeString>("name", data.name);
-    }
   }
 
   sendData(data: FormData) {
@@ -170,6 +166,11 @@ export default class ThreadForm extends Vue {
       name: normalizeString(this.form.name),
       file: this.form.file
     };
+
+    // Form name is always persistent, no matter if user is online or not:
+    if (form.name) {
+      nameStore.setItem<MaybeString>("name", form.name);
+    }
 
     if (navigator.onLine) {
       this.sendData(form);
