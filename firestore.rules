@@ -1,0 +1,27 @@
+function validateContent(content) {
+  return content != null && content.trim() != ''
+}
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /threads/{thread} {
+     	allow read:
+        if request.auth.uid != null;
+     	allow create:
+        if request.auth.uid != null
+        && request.resource.data.board in ['cyb', 'psy', 'art', 'cult', 'tech', 'λ', 'Δ', 'φ']
+        && request.resource.data.createdAt == request.time // not sure if correct
+        && !('image' in request.resource.data) // temporary !!!
+        && validateContent(request.resource.data.content);
+        
+      match /comments/{comment} {
+        allow read: if request.auth.uid != null;
+        allow create:
+          if request.auth.uid != null
+          && request.resource.data.createdAt == request.time // not sure if correct
+          && !('image' in request.resource.data) // temporary !!!
+          && validateContent(request.resource.data.content);
+      }
+    }
+  }
+}

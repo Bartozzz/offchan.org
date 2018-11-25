@@ -1,0 +1,32 @@
+{
+  "indexes": [
+    {
+      "collectionId": "threads",
+      "state": "READY",
+      "fields": [
+        {
+          "fieldPath": "board",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "mode": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionId": "threads",
+      "state": "READY",
+      "fields": [
+        {
+          "fieldPath": "board",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "mode": "DESCENDING"
+        }
+      ]
+    }
+  ]
+}

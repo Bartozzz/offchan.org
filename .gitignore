@@ -1,3 +1,7 @@
+# Firebase
+.firebaserc
+*.cache
+
 # HTTPS certs
 _localhost.crt
 _localhost.csr
