@@ -8,43 +8,43 @@ export const categories: Category[] = [
   {
     board: "cyb",
     name: "Cyberia",
-    description: "Random. Low life. High tech. Anonymity. Security."
+    description: "Random. Low life. High tech. Anonymity."
   },
 
   {
     board: "psy",
     name: "Psychology",
-    description: "Dreams. Drgs. Consciousness. Feelings. Experiences."
+    description: "Dreams. Drugs. Consciousness. Feelings."
   },
 
   {
     board: "art",
     name: "Art & Design",
-    description: "Art. Design. Origami. Photography. Writing."
+    description: "Art. Design. Photography. Writing."
   },
 
   {
     board: "cult",
     name: "Culture & Media",
-    description: "Anime. Films. Games. Lifestyle. Literature. Music."
+    description: "Films. Games. Lifestyle. Literature. Music."
   },
 
   {
     board: "tech",
     name: "Technology & Science",
-    description: "Science. Technology. Engineering. Mathematics."
+    description: "Tech. Science. Engineering. Mathematics."
   },
 
   {
     board: "λ",
     name: "Programming",
-    description: "Structure and interpretation of computer programs."
+    description: "Structure and interpretation of systems."
   },
 
   {
     board: "Δ",
     name: "Projects",
-    description: "DIY. Hardware, Software and Community Projects."
+    description: "Hardware. Software. Community Projects."
   },
 
   {
