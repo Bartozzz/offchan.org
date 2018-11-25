@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="md" type="dark" variant="black">
+  <b-navbar sticky toggleable="md" type="dark" variant="black">
     <a
       @click.prevent="$router.go(-1);"
       class="back"
@@ -19,6 +19,7 @@
         <b-nav-item
           v-for="(category, index) in categories"
           tag="router-link"
+          class="category"
           :key="index"
           :to="`/board/${category.board}/`"
           :title="`${category.name} - ${category.description}`"
@@ -103,6 +104,11 @@ $glitch-height: 30;
 }
 
 .category {
+  @include media-breakpoint-down(sm) {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
   &-board {
     @include media-breakpoint-down(sm) {
       display: inline-block;
