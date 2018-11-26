@@ -48,7 +48,7 @@
       <b-form-textarea
         v-model="form.content"
         :state="getFieldState('content')"
-        @keyup.enter.exact.native="onSubmit"
+        @keyup.enter.exact.native="/* onSubmit */"
         id="content"
         rows="3"
         max-rows="6"
