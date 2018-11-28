@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === "production") {
 
       upgradePop.style.display = "flex";
       upgradeBtn.addEventListener("click", () => {
-        location.reload();
+        window.location.reload(true);
       });
     },
 
