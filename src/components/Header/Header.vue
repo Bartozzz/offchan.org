@@ -1,15 +1,9 @@
 <template>
   <b-navbar sticky toggleable="md" type="dark" variant="black">
-    <a
-      @click.prevent="$router.go(-1);"
-      class="back"
-      :class="{ 'is-visible': showBack }"
-    >
-      &lsaquo;
-    </a>
+    <a @click.prevent="goBack" class="back" :class="{ 'is-visible': showBack }">&lsaquo;</a>
 
     <b-navbar-brand to="/" exact class="logo">
-      <img class="logo-img" src="../../assets/os.gif" />
+      <img class="logo-img" src="../../assets/os.gif">
       <span class="logo-txt" data-text="Offchan">Offchan</span>
     </b-navbar-brand>
 
@@ -24,7 +18,7 @@
           :title="`${category.name} - ${category.description}`"
         >
           <span class="category-board">/{{ category.board }}/</span>
-          <span class="category-name"> - {{ category.name }}</span>
+          <span class="category-name">- {{ category.name }}</span>
           <span class="category-description">{{ category.description }}</span>
         </b-nav-item>
       </b-navbar-nav>
@@ -42,6 +36,15 @@ export default class Header extends Vue {
   showBack!: boolean;
 
   categories = config.categories;
+
+  goBack() {
+    // Fixes issue #52 – for a page loaded in a new tab this property returns 1:
+    if (history.length > 1) {
+      this.$router.go(-1);
+    } else {
+      this.$router.push("/");
+    }
+  }
 }
 </script>
 
