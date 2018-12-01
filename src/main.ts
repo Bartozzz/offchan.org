@@ -18,7 +18,7 @@ Vue.config.productionTip = false;
 
 function handleAuthFailure() {
   (document.querySelector("#app") as HTMLElement).innerHTML = `
-    You cannot enter Offchan.
+    <p id="auth-error">You cannot enter Offchan.<p>
   `;
 }
 
@@ -35,14 +35,18 @@ function handleAuthSuccess() {
  * require the user to be logged-in.
  */
 auth.onAuthStateChanged(user => {
+  // On the first visit, `onAuthStateChanged` triggers with `user` being set to
+  // `null`. I guess we don't need the else condition anyway, since auth errors
+  // should by catched in the `signInAnonymously` promise:
   if (user) {
     handleAuthSuccess();
-  } else {
-    handleAuthFailure();
   }
+  // else {
+  //   handleAuthFailure();
+  // }
 });
 
 /**
- * Force log-in anonymouly.
+ * Force log-in anonymously.
  */
 auth.signInAnonymously().catch(handleAuthFailure);
