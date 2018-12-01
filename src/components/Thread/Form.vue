@@ -30,11 +30,11 @@
         >
           <b-form-file
             v-model="form.file"
+            @change="changeFile"
             :state="getFieldState('file')"
             id="file"
             placeholder="Choose a file..."
             aria-describedby="file-feedback"
-            disabled
           />
 
           <b-form-invalid-feedback id="file-feedback">
@@ -71,6 +71,8 @@
 import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { nameStore, formStore } from "@/store/local";
 import { normalizeString } from "@/helpers/validators";
+import { storage } from "@/api/firebase";
+import { v4 as uuidv4 } from "uuid";
 
 type MaybeString = string | null | void;
 type MaybeFile = File | null | void;
@@ -102,6 +104,9 @@ export default class ThreadForm extends Vue {
     file: null,
     content: null
   };
+
+  currentTask: firebase.storage.UploadTask | null = null;
+  fileName: string | null = null;
 
   get uniqueBoardID() {
     return this.board;
@@ -153,7 +158,7 @@ export default class ThreadForm extends Vue {
       this.$store.dispatch("createThread", {
         board: this.uniqueBoardID,
         name: data.name,
-        file: data.file,
+        file: this.fileName,
         content: data.content
       });
     }
@@ -188,6 +193,31 @@ export default class ThreadForm extends Vue {
     formStore.getItem<MaybeString>(this.uniqueBoardID).then(content => {
       this.form.content = content;
     });
+  }
+
+  changeFile(evt: any) {
+    this.currentTask && this.currentTask.cancel();
+    this.fileName = uuidv4();
+    this.currentTask = storage
+      .ref("images/" + this.fileName)
+      .put(evt.target.files[0]);
+
+    this.currentTask.on(
+      "state_changed",
+      snapshot => {
+        // file is still uploading
+        // TODO
+        console.log((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      },
+      error => {
+        // TODO
+        console.log("upload error", error);
+      },
+      () => {
+        // TODO
+        console.log("upload success");
+      }
+    );
   }
 }
 </script>

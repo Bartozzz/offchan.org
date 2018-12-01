@@ -6,7 +6,7 @@ import { firestore } from 'firebase';
 interface createCommentDto {
   content: string;
   author?: string;
-  file?: string;
+  image?: string;
   createdAt: firestore.FieldValue;
 }
 
@@ -36,6 +36,9 @@ export const commentsActions: ActionTree<State, {}> = {
     }
     if (name) {
       newComment.author = name;
+    }
+    if (file) {
+      newComment.image = file;
     }
     threadsCollection
       .doc(threadId)

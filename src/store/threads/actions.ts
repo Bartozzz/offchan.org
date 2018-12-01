@@ -22,7 +22,7 @@ const commitThreads = (
 interface createThreadDto {
   content: string;
   author?: string;
-  file?: string;
+  image?: string;
   board: string;
   createdAt: firestore.FieldValue;
 }
@@ -61,6 +61,9 @@ export const threadActions: ActionTree<State, {}> = {
     };
     if (name) {
       newThread.author = name;
+    }
+    if (file) {
+      newThread.image = file;
     }
     threadsCollection
       .add(newThread)

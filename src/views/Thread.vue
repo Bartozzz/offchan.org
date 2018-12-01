@@ -6,7 +6,7 @@
       </template>
 
       <template slot="upload-file">
-        <b-card-img v-if="threadData.image" :src="threadData.image" alt="Thread image" />
+        <b-card-img v-if="threadData.image" :src="getImageUrl(threadData.image)" alt="Thread image" />
       </template>
 
       <template slot="upload-name">
@@ -28,6 +28,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import ThreadPost from "@/components/Thread/Post.vue";
 import CommentForm from "@/components/Comments/Form.vue";
 import { State, BoardNames } from "@/store/types";
+import { getImageUrl } from "@/helpers/getImageUrl";
 
 @Component({
   components: {
@@ -42,6 +43,10 @@ export default class ThreadView extends Vue {
 
   get threadGuid() {
     return this.$route.params.thread;
+  }
+
+  getImageUrl(uuid: string) {
+    return getImageUrl(uuid);
   }
 
   get threadData() {
