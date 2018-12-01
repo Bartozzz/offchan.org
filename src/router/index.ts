@@ -4,12 +4,12 @@ import HomeView from "@/views/Home.vue";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    } else if (to.hash) {
+    if (to.hash) {
       return { selector: to.hash };
+    } else if (savedPosition) {
+      return savedPosition;
     } else {
       return { x: 0, y: 0 };
     }
@@ -18,7 +18,6 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
       component: HomeView
     },
 
@@ -52,3 +51,5 @@ export default new Router({
     }
   ]
 });
+
+export default router;
