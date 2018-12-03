@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <section class="offline" v-if="!isOnline">
-      You are offline.
-    </section>
+    <section class="offline" v-if="!isOnline">You are offline.</section>
 
     <router-view/>
   </div>
@@ -12,6 +10,7 @@
 /* eslint-disable no-console */
 import { Component as VueComponent } from "vue";
 import { Component, Vue } from "vue-property-decorator";
+import { BeforeInstallPromptEvent } from "./plugins/pwa-install";
 
 @Component({})
 export default class App extends Vue {
@@ -34,8 +33,6 @@ export default class App extends Vue {
       this.isOnline = false;
     });
 
-    // @ts-ignore: not sure why this is not fetching "BeforeInstallPromptEvent"
-    //             definition from "BeforeInstallPromptEvent.d.ts":
     this.$on("canInstall", (event: BeforeInstallPromptEvent) => {
       event.preventDefault();
 
@@ -49,7 +46,6 @@ export default class App extends Vue {
         installPop.style.display = "none";
 
         event.prompt();
-        // @ts-ignore: see BeforeInstallPromptEvent notice
         event.userChoice.then(choiceResult => {
           if (choiceResult.outcome === "accepted") {
             console.log("User accepted the install prompt");
