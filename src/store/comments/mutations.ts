@@ -1,12 +1,22 @@
-import { BoardNames, Thread, State, Comment } from "../types";
 import { MutationTree } from "vuex";
+import { Boards } from "@/api/types";
+import { Thread } from "@/api/firebase/document/thread";
+import { Comment } from "@/api/firebase/document/comment";
+import { State } from "../getInitialState";
 
-export const commentsMutations: MutationTree<State> = {
+const mutations: MutationTree<State> = {
   setComments(
     state,
-    { board, threadId, comments }: { board: BoardNames; threadId: string, comments: Comment[] }
+    payload: { board: Boards; threadId: string; comments: Comment[] }
   ) {
-    const thread = state.threads[board].find(thread => thread.guid === threadId) as Thread;
+    const { board, threadId, comments } = payload;
+
+    const thread = state.threads[board].find(
+      thread => thread.guid === threadId
+    ) as Thread;
+
     thread.comments = comments;
   }
 };
+
+export default mutations;

@@ -1,11 +1,14 @@
-import { BoardNames, Thread, State } from "../types";
 import { MutationTree } from "vuex";
+import { Boards } from "@/api/types";
+import { Thread } from "@/api/firebase/document/thread";
+import { State } from "../getInitialState";
 
-export const threadMutations: MutationTree<State> = {
-  setThreads(
-    state,
-    { board, threads }: { board: BoardNames; threads: Thread[] }
-  ) {
+const mutations: MutationTree<State> = {
+  setThreads(state, payload: { board: Boards; threads: Thread[] }) {
+    const { board, threads } = payload;
+
     state.threads[board] = threads;
   }
 };
+
+export default mutations;

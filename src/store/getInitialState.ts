@@ -1,4 +1,10 @@
-import { State } from "./types";
+import { Boards } from "@/api/types";
+import { Thread } from "@/api/firebase/document/thread";
+
+export interface State {
+  threads: { [BoardName in Boards]: Thread[] };
+  unsubscribe: (() => any) | null;
+}
 
 export function getInitialState(): State {
   return {

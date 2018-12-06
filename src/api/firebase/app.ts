@@ -24,5 +24,3 @@ export const user = auth.currentUser;
 database.settings({
   timestampsInSnapshots: true
 });
-
-export const threadsCollection = database.collection("threads");
