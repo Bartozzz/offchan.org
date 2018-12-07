@@ -8,7 +8,7 @@ const actions: ActionTree<State, {}> = {
       commit("setThreads", { board, threads });
     });
 
-    commit("unsubscribe", unsubscribe);
+    commit("setThreadsUnsubscribe", { board, unsubscribe });
   },
 
   fetchThreadsOnce({ commit, state }, { board }) {

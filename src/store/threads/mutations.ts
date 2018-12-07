@@ -7,7 +7,16 @@ const mutations: MutationTree<State> = {
   setThreads(state, payload: { board: Boards; threads: Thread[] }) {
     const { board, threads } = payload;
 
-    state.threads[board] = threads;
+    state.threads[board].document = threads;
+  },
+
+  setThreadsUnsubscribe(
+    state,
+    payload: { board: Boards; unsubscribe: () => void }
+  ) {
+    const { board, unsubscribe } = payload;
+
+    state.threads[board].listener = unsubscribe;
   }
 };
 

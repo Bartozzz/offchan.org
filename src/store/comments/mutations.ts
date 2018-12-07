@@ -11,11 +11,20 @@ const mutations: MutationTree<State> = {
   ) {
     const { board, threadId, comments } = payload;
 
-    const thread = state.threads[board].find(
+    const thread = state.threads[board].document.find(
       thread => thread.guid === threadId
     ) as Thread;
 
     thread.comments = comments;
+  },
+
+  setCommentsUnsubscribe(
+    state,
+    payload: { board: Boards; unsubscribe: () => void }
+  ) {
+    const { board, unsubscribe } = payload;
+
+    state.threads[board].listener = unsubscribe;
   }
 };
 

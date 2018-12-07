@@ -2,19 +2,18 @@
   <b-container>
     <b-jumbotron bg-variant="black" text-variant="white" class="jumbotron">
       <template slot="header">
-        /{{ category.board }}/ <span class="d-none d-md-inline">– {{ category.name }}</span>
+        /{{ category.board }}/
+        <span class="d-none d-md-inline">– {{ category.name }}</span>
       </template>
 
-      <template slot="lead">
-        {{ category.description }}
-      </template>
+      <template slot="lead">{{ category.description }}</template>
 
       <hr class="my-4">
 
       <ThreadForm :board="category.board"></ThreadForm>
     </b-jumbotron>
 
-    <ThreadList></ThreadList>
+    <ThreadList :data="threads"></ThreadList>
   </b-container>
 </template>
 
@@ -23,6 +22,8 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { categories, Category } from "@/config";
 import ThreadForm from "@/components/Thread/Form.vue";
 import ThreadList from "@/components/Thread/List.vue";
+import { State } from "@/store/getInitialState";
+import { Boards } from "@/api/types";
 
 @Component({
   components: {
@@ -31,8 +32,18 @@ import ThreadList from "@/components/Thread/List.vue";
   }
 })
 export default class ThreadsView extends Vue {
+  get board() {
+    return this.$route.params.board as Boards;
+  }
+
   get category() {
-    return categories.find(cat => cat.board === this.$route.params.board);
+    return categories.find(cat => cat.board === this.board);
+  }
+
+  get threads() {
+    const state = this.$store.state as State;
+
+    return state.threads[this.board].document;
   }
 
   @Watch("category", { immediate: true })

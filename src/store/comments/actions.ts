@@ -8,7 +8,7 @@ const actions: ActionTree<State, {}> = {
       commit("setComments", { board, threadId, comments });
     });
 
-    commit("unsubscribe", unsubscribe);
+    // commit("setUnsubscribe", unsubscribe);
   },
 
   createComment({ commit, state }, { threadId, ...data }) {

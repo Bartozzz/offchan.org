@@ -11,15 +11,7 @@ export default new Vuex.Store<State>({
 
   mutations: {
     ...threadMutations,
-    ...commentMutations,
-
-    unsubscribe(state, newUnsubscribe) {
-      if (state.unsubscribe) {
-        state.unsubscribe();
-      }
-
-      state.unsubscribe = newUnsubscribe;
-    }
+    ...commentMutations
   },
 
   actions: {
