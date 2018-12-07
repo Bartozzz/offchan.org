@@ -17,8 +17,6 @@ export const threads = database.collection("threads");
 /**
  * Creates a new comment in a given thread.
  *
- * @todo  Add file upload handler
- *
  * @param thread  Thread GUID
  * @param data    Comment data
  */
@@ -33,6 +31,10 @@ export function create(thread: string, data: CommentDocument) {
 
   if (data.author) {
     comment.author = data.author;
+  }
+
+  if (data.image) {
+    comment.image = data.image;
   }
 
   return comments.add(comment);

@@ -21,8 +21,6 @@ export const threads = database.collection("threads");
 /**
  * Creates a new thread in a given board.
  *
- * @todo  Add file upload handler
- *
  * @param thread  Board GUID
  * @param data    Thread data
  */
@@ -35,6 +33,10 @@ export function create(board: Boards, data: ThreadDocument) {
 
   if (data.author) {
     thread.author = data.author;
+  }
+
+  if (data.image) {
+    thread.image = data.image;
   }
 
   return threads.add(thread);
