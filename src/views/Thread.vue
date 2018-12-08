@@ -22,6 +22,7 @@
 
     <CommentForm :board="board" :guid="threadGuid"></CommentForm>
   </b-container>
+
   <b-container v-else>Loading...</b-container>
 </template>
 
@@ -48,16 +49,16 @@ export default class ThreadView extends Vue {
     return this.$route.params.thread;
   }
 
-  getImageUrl(uuid: string) {
-    return getImageUrl(uuid);
-  }
-
   get threadData() {
     const state = this.$store.state as State;
 
-    return state.threads[this.board].find(
+    return state.threads[this.board].document.find(
       thread => thread.guid === this.threadGuid
     );
+  }
+
+  getImageUrl(uuid: string) {
+    return getImageUrl(uuid);
   }
 
   mounted() {
