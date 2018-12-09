@@ -1,75 +1,75 @@
-import { threadsCollection } from "@/api/firebase";
-import { firestore } from "firebase";
-import { ActionTree, Commit } from "vuex";
-import { State, BoardNames } from "@/store/types";
+import { ActionTree } from "vuex";
+import { ThreadPayload } from "@/api/firebase/document/thread";
+import { threads } from "@/api/firebase";
+import { Board } from "@/api/types";
+import { State } from "@/store/getInitialState";
 
-const commitThreads = (
-  { commit, state }: { commit: Commit, state: State },
-  board: BoardNames
-) => (snapshot: firestore.QuerySnapshot) => {
-
-  if (snapshot.size === state.threads[board].length) {
-    return;
-  }
-  const threads = snapshot.docs.map(doc => ({
-    guid: doc.id,
-    ...doc.data(),
-    comments: []
-  }));
-  commit("setThreads", { board, threads });
+/**
+ * Checks if there's a valid subscription listener for a board.
+ *
+ * @param state Current app state
+ * @param board Board to check subscription for
+ */
+export const hasSubscribed = (state: State, board: Board) => {
+  return typeof state.threads[board].unsubscribe === "function";
 };
 
-interface createThreadDto {
-  content: string;
-  author?: string;
-  file?: string;
-  board: string;
-  createdAt: firestore.FieldValue;
-}
+const actions: ActionTree<State, {}> = {
+  /**
+   * Subscribes to threads from a given board (if there's no subscribtion
+   * already) and fetches threads in real-time.
+   *
+   * @param payload         Action payload
+   * @param payload.board   Board to fetch threads from
+   */
+  fetchThreads({ commit, state }, payload: { board: Board }) {
+    const { board } = payload;
 
-export const threadActions: ActionTree<State, {}> = {
-  fetchThreads({ commit, state }, { board }: { board: BoardNames }) {
-    const unsubscribe = threadsCollection
-      .where("board", "==", board)
-      .orderBy("createdAt", "desc")
-      .onSnapshot(
-        commitThreads({ commit, state }, board),
-        error => {
-          console.error("fetchThreads error: ", error);
-        }
-      );
-    commit('unsubscribe', unsubscribe);
-  },
-  fetchThreadsOnce({ commit, state }, { board }: { board: BoardNames }) {
-    return threadsCollection
-      .where("board", "==", board)
-      .orderBy("createdAt", "desc")
-      .get()
-      .then(
-        commitThreads({ commit, state }, board),
-        error => {
-          console.error("fetchThreads error: ", error);
-        }
-      );
-  },
-  createThread({}, { name, content, file, board }) {
-    // TODO - handle file upload
-    const newThread: createThreadDto = {
-      content,
-      board,
-      createdAt: firestore.FieldValue.serverTimestamp()
-    };
-    if (name) {
-      newThread.author = name;
-    }
-    threadsCollection
-      .add(newThread)
-      .then(doc => {
-        // TODO - handle success
-      })
-      .catch(err => {
-        console.error(err);
-        // TODO - handle error
+    if (!hasSubscribed(state, board)) {
+      console.debug(`[Vuex] Subscribing to threads from ${board}`);
+
+      const unsubscribe = threads.fetch(board, threads => {
+        console.debug(`[Vuex] New thread bulk from ${board}`);
+        commit("setThreads", { board, threads });
       });
+
+      commit("setThreadsUnsubscribe", { board, unsubscribe });
+    } else {
+      console.debug(`[Vuex] Already subscribed to threads from ${board}`);
+    }
+  },
+
+  /**
+   * Fetches threads for a board once (without subscription).
+   *
+   * @param payload         Action payload
+   * @param payload.board   Board to fetch threads from
+   */
+  fetchThreadsOnce({ commit, state }, payload: { board: Board }) {
+    const { board } = payload;
+    const timeLabel = `[Vuex] Fetched threads from ${board}`;
+
+    console.time(timeLabel);
+
+    return threads.fetchOnce(board).then(threads => {
+      console.timeEnd(timeLabel);
+      commit("setThreads", { board, threads });
+    });
+  },
+
+  /**
+   * Creates a new thread with provided payload in a given board.
+   *
+   * @param payload         Action payload
+   * @param payload.board   Board to create thread in
+   * @param payload.<rest>  Thread payload
+   */
+  createThread({ commit, state }, payload: { board: Board } & ThreadPayload) {
+    const { board, ...data } = payload;
+
+    console.debug(`[Vuex] Creating new thread in ${board}`, data);
+    threads.create(board, data);
   }
 };
+
+export default actions;

@@ -12,26 +12,21 @@
             aria-describedby="name-feedback"
           />
 
-          <b-form-invalid-feedback id="name-feedback">
-            {{ errors.name }}
-          </b-form-invalid-feedback>
+          <b-form-invalid-feedback id="name-feedback">{{ errors.name }}</b-form-invalid-feedback>
         </b-form-group>
       </b-col>
 
       <b-col>
         <b-form-group label="Optional file:" label-for="file">
           <b-form-file
-            v-model="form.file"
-            :state="getFieldState('file')"
+            v-model="form.image"
+            :state="getFieldState('image')"
             id="file"
             placeholder="Choose a file (optional)..."
             aria-describedby="file-feedback"
-            disabled
           />
 
-          <b-form-invalid-feedback id="file-feedback">
-            {{ errors.file }}
-          </b-form-invalid-feedback>
+          <b-form-invalid-feedback id="file-feedback">{{ errors.image }}</b-form-invalid-feedback>
         </b-form-group>
       </b-col>
     </b-row>
@@ -48,14 +43,10 @@
         aria-describedby="content-feedback"
       />
 
-      <b-form-invalid-feedback id="content-feedback">
-        {{ errors.content }}
-      </b-form-invalid-feedback>
+      <b-form-invalid-feedback id="content-feedback">{{ errors.content }}</b-form-invalid-feedback>
     </b-form-group>
 
-    <b-button class="float-right" type="submit" variant="primary"
-      >Post</b-button
-    >
+    <b-button class="float-right" type="submit" variant="primary">Post</b-button>
   </b-form>
 </template>
 
@@ -63,20 +54,22 @@
 import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { nameStore, formStore } from "@/store/local";
 import { normalizeString } from "@/helpers/validators";
+import { uploadFile } from "@/api/firebase/document/image";
 
-type MaybeString = string | null | void;
-type MaybeFile = File | null | void;
+type Nullable<T> = T | null;
+type Optional<T> = T | undefined;
+type CommentData = FormErrors;
 
 interface FormErrors {
-  file: MaybeString;
-  name: MaybeString;
-  content: MaybeString;
+  name?: Nullable<string>;
+  image?: Nullable<string>;
+  content?: Nullable<string>;
 }
 
 interface FormData {
-  file: MaybeFile;
-  name: MaybeString;
-  content: MaybeString;
+  name?: Nullable<string>;
+  image?: Nullable<File>;
+  content?: Nullable<string>;
 }
 
 @Component({})
@@ -86,13 +79,13 @@ export default class CommentForm extends Vue {
 
   errors: FormErrors = {
     name: null,
-    file: null,
+    image: null,
     content: null
   };
 
   form: FormData = {
     name: null,
-    file: null,
+    image: null,
     content: null
   };
 
@@ -109,19 +102,19 @@ export default class CommentForm extends Vue {
 
   resetErrors() {
     this.errors.content = null;
-    this.errors.file = null;
+    this.errors.image = null;
     this.errors.name = null;
   }
 
   resetForm() {
     this.form.content = null;
-    this.form.file = null;
+    this.form.image = null;
 
     // NOTE: don't clear name since it should be persistent for the session:
     // this.form.name = null;
   }
 
-  validateForm(data: FormData) {
+  validateForm(data: CommentData) {
     if (!data.content) {
       this.errors.content = "Message is required.";
       return false;
@@ -130,23 +123,28 @@ export default class CommentForm extends Vue {
     return true;
   }
 
-  storeData(data: FormData) {
-    formStore.setItem<MaybeString>(this.uniqueCommentID, data.content);
+  storeData(data: CommentData) {
+    // NOTE: image should not be stored (too large)
+    // NotE: name already stored in onSubmit method
+    formStore.setItem<Optional<Nullable<string>>>(
+      this.uniqueCommentID,
+      data.content
+    );
   }
 
-  sendData(data: FormData) {
+  sendData(data: CommentData) {
     if (this.validateForm(data)) {
       this.resetErrors();
       this.resetForm();
 
       // Reset local storage:
-      formStore.setItem<MaybeString>(this.uniqueCommentID, null);
+      formStore.setItem(this.uniqueCommentID, null);
 
       // Send thread:
       this.$store.dispatch("createComment", {
         threadId: this.guid,
         name: data.name,
-        file: data.file,
+        image: data.image,
         content: data.content
       });
     }
@@ -154,31 +152,48 @@ export default class CommentForm extends Vue {
 
   onSubmit(event: Event) {
     // Normalize form data for further validation:
-    const form: FormData = {
+    const form: CommentData = {
       content: normalizeString(this.form.content),
-      name: normalizeString(this.form.name),
-      file: this.form.file
+      name: normalizeString(this.form.name)
     };
 
     // Form name is always persistent, no matter if user is online or not:
     if (form.name) {
-      nameStore.setItem<MaybeString>("name", form.name);
+      nameStore.setItem<Nullable<string>>("name", form.name);
     }
 
     if (navigator.onLine) {
-      this.sendData(form);
+      if (this.form.image) {
+        const { task, fileName, filePath } = uploadFile(this.form.image);
+
+        task.on("state_changed", this.onImageInfo, this.onImageError, () => {
+          this.sendData({ ...form, image: fileName });
+        });
+      } else {
+        this.sendData(form);
+      }
     } else {
       this.storeData(form);
     }
   }
 
+  onImageInfo(snapshot: Object) {
+    const info = snapshot as { bytesTransferred: number; totalBytes: number };
+
+    console.log((info.bytesTransferred / info.totalBytes) * 100);
+  }
+
+  onImageError(error: Error) {
+    this.errors.image = error.message;
+  }
+
   @Watch("uniqueCommentID", { immediate: true })
   onThreadChange() {
-    nameStore.getItem<MaybeString>("name").then(name => {
+    nameStore.getItem<Nullable<string>>("name").then(name => {
       this.form.name = name;
     });
 
-    formStore.getItem<MaybeString>(this.uniqueCommentID).then(content => {
+    formStore.getItem<Nullable<string>>(this.uniqueCommentID).then(content => {
       this.form.content = content;
     });
   }

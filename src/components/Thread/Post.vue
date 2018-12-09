@@ -2,7 +2,9 @@
   <div>
     <b-card tag="article" class="thread" no-body>
       <b-row no-gutters>
-        <b-col lg="2" md="3" sm="12"> <slot name="upload-file"></slot> </b-col>
+        <b-col lg="2" md="3" sm="12">
+          <slot name="upload-file"></slot>
+        </b-col>
 
         <b-col>
           <header class="thread-header text-muted">
@@ -10,23 +12,21 @@
             <slot name="author">Anon</slot>
           </header>
 
-          <b-card-body class="thread-content"> <slot></slot> </b-card-body>
+          <b-card-body class="thread-content">
+            <slot></slot>
+          </b-card-body>
         </b-col>
       </b-row>
 
       <b-card-footer>
         <section class="text-right">
-          <router-link :to="`/board/${board}/${guid}`" class="card-link"
-            >View</router-link
-          >
-          <router-link :to="`/board/${board}/${guid}#reply`" class="card-link"
-            >Reply</router-link
-          >
+          <router-link :to="`/board/${board}/${guid}`" class="card-link">View</router-link>
+          <router-link :to="`/board/${board}/${guid}#reply`" class="card-link">Reply</router-link>
         </section>
       </b-card-footer>
     </b-card>
 
-    <CommentsList :data="comments" v-if="this.$route.name === 'threadFull'" />
+    <CommentsList :data="comments" v-if="this.$route.name === 'threadFull'"/>
   </div>
 </template>
 

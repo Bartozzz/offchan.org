@@ -2,14 +2,11 @@
   <ul class="comments">
     <li v-for="(comment, index) in data" :key="index" class="comment">
       <CommentPost :guid="comment.id">
-        <template slot="author">
-          {{ comment.author || "Anon" }}
-        </template>
+        <template slot="author">{{ comment.author || "Anon" }}</template>
 
         <template slot="upload-file">
-          <b-card-img v-if="comment.image" :src="comment.image" alt="Comment image" />
+          <b-card-img v-if="comment.image" :src="getImageUrl(comment.image)" alt="Comment image"/>
         </template>
-
         {{ comment.content }}
       </CommentPost>
     </li>
@@ -19,6 +16,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import CommentPost from "./Post.vue";
+import { getImageUrl } from "@/helpers/getImageUrl";
 
 @Component({
   components: {
@@ -27,6 +25,10 @@ import CommentPost from "./Post.vue";
 })
 export default class CommentsList extends Vue {
   @Prop(Array) data!: Array<Object>;
+
+  getImageUrl(uuid: string) {
+    return getImageUrl(uuid);
+  }
 }
 </script>
 

@@ -1,5 +1,7 @@
+import { Board } from "@/api/types";
+
 export interface Category {
-  board: string;
+  board: Board;
   name: string;
   description: string;
 }

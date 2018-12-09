@@ -1,52 +1,75 @@
-import { threadsCollection } from "@/api/firebase";
 import { ActionTree } from "vuex";
-import { State, BoardNames } from "@/store/types";
-import { firestore } from 'firebase';
+import { CommentPayload } from "@/api/firebase/document/comment";
+import { comments } from "@/api/firebase";
+import { Board } from "@/api/types";
+import { State } from "@/store/getInitialState";
 
-interface createCommentDto {
-  content: string;
-  author?: string;
-  file?: string;
-  createdAt: firestore.FieldValue;
-}
-
-export const commentsActions: ActionTree<State, {}> = {
+const actions: ActionTree<State, {}> = {
+  /**
+   * Subscribes to comments from a given thread (if there's no subscribtion
+   * already) and fetches threads in real-time.
+   *
+   * @param payload           Action payload
+   * @param payload.board     Thread's board
+   * @param payload.threadId  Thread's id
+   */
   fetchComments(
     { commit, state },
-    { board, threadId }: { board: BoardNames, threadId: string }
+    payload: { board: Board; threadId: string }
   ) {
-    const unsubscribe = threadsCollection
-      .doc(threadId)
-      .collection('comments')
-      .orderBy('createdAt', 'asc')
-      .onSnapshot(snapshot => {
-        const comments = snapshot.docs.map(doc => ({
-          guid: doc.id,
-          ...doc.data(),
-        }));
-        commit('setComments', { board, threadId, comments });
-      });
-    commit('unsubscribe', unsubscribe);
+    const { board, threadId } = payload;
+
+    if (typeof state.comments.unsubscribe === "function") {
+      console.debug(`[Vuex] Unsubscribing from comments ${board}/${threadId}`);
+      console.error(`[Vuex] Unsubscription should not happen in fetchComments`);
+
+      state.comments.unsubscribe();
+      state.comments.unsubscribe = null;
+    }
+
+    console.debug(`[Vuex] Subscribing to comments from ${board}/${threadId}`);
+
+    const unsubscribe = comments.fetch(threadId, comments => {
+      console.debug(`[Vuex] New comments bulk from ${board}/${threadId}`);
+      commit("setComments", { board, threadId, comments });
+    });
+
+    commit("setCommentsUnsubscribe", { board, threadId, unsubscribe });
   },
-  createComment({}, { name, content, file, threadId }) {
-    // TODO - handle file upload
-    const newComment: createCommentDto = {
-      content,
-      createdAt: firestore.FieldValue.serverTimestamp()
+
+  /**
+   * Unsubscribes from the latest comments listener (if there's any).
+   */
+  unsubscribeComments(
+    { commit, state },
+    payload: { board: Board; threadId: string }
+  ) {
+    const { board, threadId } = payload;
+
+    if (typeof state.comments.unsubscribe === "function") {
+      console.debug(`[Vuex] Unsubscribing from comments ${board}/${threadId}`);
+
+      state.comments.unsubscribe();
+      state.comments.unsubscribe = null;
     }
-    if (name) {
-      newComment.author = name;
-    }
-    threadsCollection
-      .doc(threadId)
-      .collection('comments')
-      .add(newComment)
-      .then(doc => {
-        // TODO - handle success
-      })
-      .catch(err => {
-        console.error(err);
-        // TODO - handle error
-      });
+  },
+
+  /**
+   * Creates a new comment with provided payload in a given thread.
+   *
+   * @param payload           Action payload
+   * @param payload.threadId  Thread to create comment in
+   * @param payload.<rest>    Comments payload
+   */
+  createComment(
+    { commit, state },
+    payload: { threadId: string } & CommentPayload
+  ) {
+    const { threadId, ...data } = payload;
+
+    console.debug(`[Vuex] Creating new comment in ${threadId}`, data);
+    comments.create(threadId, data);
   }
-}
+};
+
+export default actions;
