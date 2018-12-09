@@ -17,7 +17,7 @@ const actions: ActionTree<State, {}> = {
     // NOTE: no need to unsubscribe from this counter:
     counters.fetch<ThreadsCounter>(COUNTER_THREADS, data => {
       console.debug(`[Vuex] Threads counter updated`);
-      commit("setThreadsCounter", { data });
+      commit("setThreadsCounter", data);
     });
   },
 
