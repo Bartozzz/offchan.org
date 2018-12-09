@@ -31,7 +31,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import ThreadPost from "@/components/Thread/Post.vue";
 import CommentForm from "@/components/Comments/Form.vue";
 import { State } from "@/store/getInitialState";
-import { Boards } from "@/api/types";
+import { Board } from "@/api/types";
 import { getImageUrl } from "@/helpers/getImageUrl";
 
 @Component({
@@ -42,7 +42,7 @@ import { getImageUrl } from "@/helpers/getImageUrl";
 })
 export default class ThreadView extends Vue {
   get board() {
-    return this.$route.params.board as Boards;
+    return this.$route.params.board as Board;
   }
 
   get threadGuid() {

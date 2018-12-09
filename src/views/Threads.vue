@@ -23,7 +23,7 @@ import { categories, Category } from "@/config";
 import ThreadForm from "@/components/Thread/Form.vue";
 import ThreadList from "@/components/Thread/List.vue";
 import { State } from "@/store/getInitialState";
-import { Boards } from "@/api/types";
+import { Board } from "@/api/types";
 
 @Component({
   components: {
@@ -33,7 +33,7 @@ import { Boards } from "@/api/types";
 })
 export default class ThreadsView extends Vue {
   get board() {
-    return this.$route.params.board as Boards;
+    return this.$route.params.board as Board;
   }
 
   get category() {

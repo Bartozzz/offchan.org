@@ -1,5 +1,5 @@
 import { categories } from "@/config";
-import { Boards } from "@/api/types";
+import { Board } from "@/api/types";
 import { Thread } from "@/api/firebase/document/thread";
 
 export interface BoardState {
@@ -10,10 +10,10 @@ export interface BoardState {
 
 export interface State {
   commentsListener: null | (() => void);
-  threads: { [BoardName in Boards]: BoardState };
+  threads: { [BoardName in Board]: BoardState };
 }
 
-export function createStateForBoard(name: Boards): BoardState {
+export function createStateForBoard(name: Board): BoardState {
   return {
     lastFetch: +new Date(),
     listener: null,

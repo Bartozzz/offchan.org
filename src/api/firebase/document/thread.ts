@@ -1,7 +1,7 @@
 import { firestore } from "firebase/app";
 import { database } from "../app";
 import { Comment } from "./comment";
-import { Boards } from "../../types";
+import { Board } from "../../types";
 
 export interface ThreadPayload {
   content: string;
@@ -10,7 +10,7 @@ export interface ThreadPayload {
 }
 
 export type ThreadDocument = ThreadPayload & {
-  board: Boards;
+  board: Board;
   createdAt: firestore.FieldValue;
   comments?: Comment[];
 };
@@ -27,7 +27,7 @@ export const threads = database.collection("threads");
  * @param thread  Board GUID
  * @param data    Thread data
  */
-export function create(board: Boards, data: ThreadPayload) {
+export function create(board: Board, data: ThreadPayload) {
   const thread: ThreadDocument = {
     board: board,
     content: data.content,
@@ -52,7 +52,7 @@ export function create(board: Boards, data: ThreadPayload) {
  * @param onSnapshot  Callback
  */
 export function fetch(
-  board: Boards,
+  board: Board,
   onSnapshot: (data: Readonly<Thread>[]) => void
 ) {
   const threadsQuery = threads
@@ -77,7 +77,7 @@ export function fetch(
  *
  * @param board     Board GUID
  */
-export function fetchOnce(board: Boards) {
+export function fetchOnce(board: Board) {
   return threads
     .where("board", "==", board)
     .orderBy("createdAt", "desc")
@@ -97,7 +97,7 @@ export function fetchOnce(board: Boards) {
  * @param board     Board GUID
  * @param data      New thread data
  */
-export function update(board: Boards, data: ThreadDocument) {
+export function update(board: Board, data: ThreadDocument) {
   throw new Error("Not implemented");
 }
 

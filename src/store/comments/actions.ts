@@ -1,7 +1,7 @@
 import { ActionTree } from "vuex";
 import { CommentPayload } from "@/api/firebase/document/comment";
 import { comments } from "@/api/firebase";
-import { Boards } from "@/api/types";
+import { Board } from "@/api/types";
 import { State } from "@/store/getInitialState";
 
 const actions: ActionTree<State, {}> = {
@@ -15,7 +15,7 @@ const actions: ActionTree<State, {}> = {
    */
   fetchComments(
     { commit, state },
-    payload: { board: Boards; threadId: string }
+    payload: { board: Board; threadId: string }
   ) {
     const { board, threadId } = payload;
 
@@ -42,7 +42,7 @@ const actions: ActionTree<State, {}> = {
    */
   unsubscribeComments(
     { commit, state },
-    payload: { board: Boards; threadId: string }
+    payload: { board: Board; threadId: string }
   ) {
     const { board, threadId } = payload;
 
@@ -63,7 +63,7 @@ const actions: ActionTree<State, {}> = {
    */
   createComment(
     { commit, state },
-    payload: { threadId: Boards } & CommentPayload
+    payload: { threadId: string } & CommentPayload
   ) {
     const { threadId, ...data } = payload;
 

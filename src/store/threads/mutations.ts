@@ -1,10 +1,10 @@
 import { MutationTree } from "vuex";
-import { Boards } from "@/api/types";
+import { Board } from "@/api/types";
 import { Thread } from "@/api/firebase/document/thread";
 import { State } from "../getInitialState";
 
 const mutations: MutationTree<State> = {
-  setThreads(state, payload: { board: Boards; threads: Thread[] }) {
+  setThreads(state, payload: { board: Board; threads: Thread[] }) {
     const { board, threads } = payload;
 
     state.threads[board].document = threads;
@@ -12,7 +12,7 @@ const mutations: MutationTree<State> = {
 
   setThreadsUnsubscribe(
     state,
-    payload: { board: Boards; unsubscribe: () => void }
+    payload: { board: Board; unsubscribe: () => void }
   ) {
     const { board, unsubscribe } = payload;
 

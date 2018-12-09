@@ -1,7 +1,7 @@
 import { ActionTree } from "vuex";
 import { ThreadPayload } from "@/api/firebase/document/thread";
 import { threads } from "@/api/firebase";
-import { Boards } from "@/api/types";
+import { Board } from "@/api/types";
 import { State } from "@/store/getInitialState";
 
 /**
@@ -10,7 +10,7 @@ import { State } from "@/store/getInitialState";
  * @param state Current app state
  * @param board Board to check subscription for
  */
-export const hasSubscribed = (state: State, board: Boards) => {
+export const hasSubscribed = (state: State, board: Board) => {
   return typeof state.threads[board].listener === "function";
 };
 
@@ -22,7 +22,7 @@ const actions: ActionTree<State, {}> = {
    * @param payload         Action payload
    * @param payload.board   Board to fetch threads from
    */
-  fetchThreads({ commit, state }, payload: { board: Boards }) {
+  fetchThreads({ commit, state }, payload: { board: Board }) {
     const { board } = payload;
 
     if (!hasSubscribed(state, board)) {
@@ -45,7 +45,7 @@ const actions: ActionTree<State, {}> = {
    * @param payload         Action payload
    * @param payload.board   Board to fetch threads from
    */
-  fetchThreadsOnce({ commit, state }, payload: { board: Boards }) {
+  fetchThreadsOnce({ commit, state }, payload: { board: Board }) {
     const { board } = payload;
     const timeLabel = `[Vuex] Fetched threads from ${board}`;
 
@@ -64,7 +64,7 @@ const actions: ActionTree<State, {}> = {
    * @param payload.board   Board to create thread in
    * @param payload.<rest>  Thread payload
    */
-  createThread({ commit, state }, payload: { board: Boards } & ThreadPayload) {
+  createThread({ commit, state }, payload: { board: Board } & ThreadPayload) {
     const { board, ...data } = payload;
 
     console.debug(`[Vuex] Creating new thread in ${board}`, data);
