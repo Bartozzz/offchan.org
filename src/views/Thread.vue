@@ -65,9 +65,15 @@ export default class ThreadView extends Vue {
     this.onThreadChange();
   }
 
+  destroyed() {
+    this.unsubscribe();
+  }
+
   @Watch("board")
   @Watch("threadGuid")
   onThreadChange() {
+    this.unsubscribe();
+
     if (this.threadData === undefined) {
       this.$store
         .dispatch("fetchThreadsOnce", { board: this.board })
@@ -85,6 +91,13 @@ export default class ThreadView extends Vue {
 
   fetchComments() {
     this.$store.dispatch("fetchComments", {
+      board: this.board,
+      threadId: this.threadGuid
+    });
+  }
+
+  unsubscribe() {
+    this.$store.dispatch("unsubscribeComments", {
       board: this.board,
       threadId: this.threadGuid
     });

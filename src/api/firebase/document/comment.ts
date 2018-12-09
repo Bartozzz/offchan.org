@@ -1,12 +1,15 @@
 import { firestore } from "firebase/app";
 import { database } from "../app";
 
-export interface CommentDocument {
+export interface CommentPayload {
   content: string;
-  createdAt: firestore.FieldValue;
   image?: string;
   author?: string;
 }
+
+export type CommentDocument = CommentPayload & {
+  createdAt: firestore.FieldValue;
+};
 
 export type Comment = CommentDocument & {
   guid: string;
@@ -20,7 +23,7 @@ export const threads = database.collection("threads");
  * @param thread  Thread GUID
  * @param data    Comment data
  */
-export function create(thread: string, data: CommentDocument) {
+export function create(thread: string, data: CommentPayload) {
   const comments = threads.doc(thread).collection("comments");
 
   // Comment to create:

@@ -20,11 +20,11 @@ const mutations: MutationTree<State> = {
 
   setCommentsUnsubscribe(
     state,
-    payload: { board: Boards; unsubscribe: () => void }
+    payload: { board: Boards; threadId: string; unsubscribe: () => void }
   ) {
-    const { board, unsubscribe } = payload;
+    const { board, threadId, unsubscribe } = payload;
 
-    state.threads[board].listener = unsubscribe;
+    state.commentsListener = unsubscribe;
   }
 };
 

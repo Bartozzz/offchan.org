@@ -9,6 +9,7 @@ export interface BoardState {
 }
 
 export interface State {
+  commentsListener: null | (() => void);
   threads: { [BoardName in Boards]: BoardState };
 }
 
@@ -22,6 +23,7 @@ export function createStateForBoard(name: Boards): BoardState {
 
 export function getInitialState(): State {
   return {
+    commentsListener: null,
     threads: {
       cyb: createStateForBoard("cyb"),
       psy: createStateForBoard("psy"),
