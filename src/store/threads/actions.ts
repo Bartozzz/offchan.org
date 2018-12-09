@@ -11,7 +11,7 @@ import { State } from "@/store/getInitialState";
  * @param board Board to check subscription for
  */
 export const hasSubscribed = (state: State, board: Board) => {
-  return typeof state.threads[board].listener === "function";
+  return typeof state.threads[board].unsubscribe === "function";
 };
 
 const actions: ActionTree<State, {}> = {

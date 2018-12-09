@@ -2,7 +2,7 @@ import { MutationTree } from "vuex";
 import { Board } from "@/api/types";
 import { Thread } from "@/api/firebase/document/thread";
 import { Comment } from "@/api/firebase/document/comment";
-import { State } from "@/store/getInitialState";
+import { State, Unsubscribe } from "@/store/getInitialState";
 
 const mutations: MutationTree<State> = {
   setComments(
@@ -20,11 +20,11 @@ const mutations: MutationTree<State> = {
 
   setCommentsUnsubscribe(
     state,
-    payload: { board: Board; threadId: string; unsubscribe: () => void }
+    payload: { board: Board; threadId: string; unsubscribe: Unsubscribe }
   ) {
     const { board, threadId, unsubscribe } = payload;
 
-    state.commentsListener = unsubscribe;
+    state.comments.unsubscribe = unsubscribe;
   }
 };
 

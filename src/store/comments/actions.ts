@@ -19,12 +19,12 @@ const actions: ActionTree<State, {}> = {
   ) {
     const { board, threadId } = payload;
 
-    if (typeof state.commentsListener === "function") {
+    if (typeof state.comments.unsubscribe === "function") {
       console.debug(`[Vuex] Unsubscribing from comments ${board}/${threadId}`);
       console.error(`[Vuex] Unsubscription should not happen in fetchComments`);
 
-      state.commentsListener();
-      state.commentsListener = null;
+      state.comments.unsubscribe();
+      state.comments.unsubscribe = null;
     }
 
     console.debug(`[Vuex] Subscribing to comments from ${board}/${threadId}`);
@@ -46,11 +46,11 @@ const actions: ActionTree<State, {}> = {
   ) {
     const { board, threadId } = payload;
 
-    if (typeof state.commentsListener === "function") {
+    if (typeof state.comments.unsubscribe === "function") {
       console.debug(`[Vuex] Unsubscribing from comments ${board}/${threadId}`);
 
-      state.commentsListener();
-      state.commentsListener = null;
+      state.comments.unsubscribe();
+      state.comments.unsubscribe = null;
     }
   },
 

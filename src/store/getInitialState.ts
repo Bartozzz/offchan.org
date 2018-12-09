@@ -1,28 +1,33 @@
 import { Board } from "@/api/types";
 import { Thread } from "@/api/firebase/document/thread";
 
+// Firebase unsubscribe function:
+export type Unsubscribe = () => void;
+
 export interface BoardState {
+  unsubscribe: null | Unsubscribe;
   lastFetch: number;
-  listener: null | Function;
   document: Thread[];
 }
 
 export interface State {
-  commentsListener: null | (() => void);
+  comments: { unsubscribe: null | Unsubscribe };
   threads: { [BoardName in Board]: BoardState };
 }
 
 export function createStateForBoard(name: Board): BoardState {
   return {
+    unsubscribe: null,
     lastFetch: +new Date(),
-    listener: null,
     document: []
   };
 }
 
 export function getInitialState(): State {
   return {
-    commentsListener: null,
+    comments: {
+      unsubscribe: null
+    },
     threads: {
       cyb: createStateForBoard("cyb"),
       psy: createStateForBoard("psy"),
