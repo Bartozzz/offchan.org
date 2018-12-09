@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { State, getInitialState } from "./getInitialState";
-import { commentMutations, commentActions } from "./comments";
-import { threadMutations, threadActions } from "./threads";
+import { State, getInitialState } from "@/store/getInitialState";
+import { commentMutations, commentActions } from "@/store/comments";
+import { threadMutations, threadActions } from "@/store/threads";
 
 Vue.use(Vuex);
 

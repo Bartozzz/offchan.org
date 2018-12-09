@@ -2,7 +2,7 @@ import { MutationTree } from "vuex";
 import { Board } from "@/api/types";
 import { Thread } from "@/api/firebase/document/thread";
 import { Comment } from "@/api/firebase/document/comment";
-import { State } from "../getInitialState";
+import { State } from "@/store/getInitialState";
 
 const mutations: MutationTree<State> = {
   setComments(

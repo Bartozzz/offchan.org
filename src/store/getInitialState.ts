@@ -1,4 +1,3 @@
-import { categories } from "@/config";
 import { Board } from "@/api/types";
 import { Thread } from "@/api/firebase/document/thread";
 

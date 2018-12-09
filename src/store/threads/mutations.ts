@@ -1,7 +1,7 @@
 import { MutationTree } from "vuex";
 import { Board } from "@/api/types";
 import { Thread } from "@/api/firebase/document/thread";
-import { State } from "../getInitialState";
+import { State } from "@/store/getInitialState";
 
 const mutations: MutationTree<State> = {
   setThreads(state, payload: { board: Board; threads: Thread[] }) {
