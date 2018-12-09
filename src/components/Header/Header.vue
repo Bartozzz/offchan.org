@@ -1,6 +1,6 @@
 <template>
   <b-navbar sticky toggleable="md" type="dark" variant="black">
-    <a @click.prevent="$router.go(-1);" class="back" :class="{ 'is-visible': showBack }">&lsaquo;</a>
+    <a @click.prevent="goBack" class="back" :class="{ 'is-visible': showBack }">&lsaquo;</a>
 
     <b-navbar-brand to="/" exact class="logo">
       <img class="logo-img" src="../../assets/os.gif">
@@ -36,6 +36,15 @@ export default class Header extends Vue {
   showBack!: boolean;
 
   categories = config.categories;
+
+  goBack() {
+    // Fixes issue #52 – for a page loaded in a new tab this property returns 1:
+    if (history.length > 1) {
+      this.$router.go(-1);
+    } else {
+      this.$router.push("/");
+    }
+  }
 }
 </script>
 
