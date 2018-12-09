@@ -3,14 +3,17 @@ import { database } from "../app";
 import { Comment } from "./comment";
 import { Boards } from "../../types";
 
-export interface ThreadDocument {
-  board: Boards;
+export interface ThreadPayload {
   content: string;
-  createdAt: firestore.FieldValue;
   image?: string;
   author?: string;
-  comments?: Comment[];
 }
+
+export type ThreadDocument = ThreadPayload & {
+  board: Boards;
+  createdAt: firestore.FieldValue;
+  comments?: Comment[];
+};
 
 export type Thread = ThreadDocument & {
   guid: string;
@@ -24,7 +27,7 @@ export const threads = database.collection("threads");
  * @param thread  Board GUID
  * @param data    Thread data
  */
-export function create(board: Boards, data: ThreadDocument) {
+export function create(board: Boards, data: ThreadPayload) {
   const thread: ThreadDocument = {
     board: board,
     content: data.content,
