@@ -14,7 +14,7 @@ $theme-colors: (
   "success": $success,
   "info": $info,
   "warning": $warning,
-  "danger": $danger,
+  "danger": #ff504e,
   "light": $light,
   "dark": #111111,
   "black": #000000
@@ -22,11 +22,14 @@ $theme-colors: (
 
 // Body:
 $body-bg: $black;
-$body-color: $white;
+$body-color: #f5f4f4;
 
 // Links:
 $link-color: theme-color("primary");
 $link-hover-color: darken($link-color, 15%);
+
+// Nav:
+$navbar-nav-link-padding-x: 0.65rem;
 
 // Cards:
 $card-border-width: 0;

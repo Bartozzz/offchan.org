@@ -20,6 +20,7 @@
           <span class="category-board">/{{ category.board }}/</span>
           <span class="category-name">- {{ category.name }}</span>
           <span class="category-description">{{ category.description }}</span>
+          <UnreadCounter class="unread" :board="category.board"></UnreadCounter>
         </b-nav-item>
       </b-navbar-nav>
     </b-collapse>
@@ -28,9 +29,14 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import UnreadCounter from "../Counter/Unread.vue";
 import * as config from "@/config";
 
-@Component({})
+@Component({
+  components: {
+    UnreadCounter
+  }
+})
 export default class Header extends Vue {
   @Prop({ type: Boolean, default: false })
   showBack!: boolean;
@@ -80,6 +86,42 @@ $glitch-height: 30;
   }
 }
 
+$unread-size-md: 16px;
+$unread-size-sm: 18px;
+
+.unread {
+  position: absolute;
+  top: -13px;
+  right: 0;
+
+  // Vertical & horizontal center:
+  text-align: center;
+  line-height: $unread-size-md;
+
+  width: $unread-size-md;
+  height: $unread-size-md;
+  font-size: $unread-size-md * 0.65;
+  font-weight: 900;
+  font-family: $font-family-monospace;
+
+  background-color: theme-color("primary");
+
+  border-width: 0;
+  border-radius: 100%;
+
+  @include media-breakpoint-down(sm) {
+    left: -10px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: $unread-size-sm;
+    height: $unread-size-sm;
+    line-height: $unread-size-sm;
+    font-size: $unread-size-sm * 0.65;
+  }
+}
+
 .logo {
   &-img {
     height: 35px;
@@ -106,12 +148,19 @@ $glitch-height: 30;
 }
 
 .category {
+  position: relative;
+
   @include media-breakpoint-down(sm) {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
 
   &-board {
+    @include media-breakpoint-up(sm) {
+      font-family: $font-family-monospace;
+      font-size: 0.85rem;
+    }
+
     @include media-breakpoint-down(sm) {
       display: inline-block;
 
