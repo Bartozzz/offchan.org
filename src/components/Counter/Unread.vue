@@ -1,5 +1,5 @@
 <template>
-  <span v-if="counter > 0">{{ counter }}</span>
+  <span v-if="counter === '+' || counter > 0">{{ counter }}</span>
 </template>
 
 <script lang="ts">
@@ -15,8 +15,9 @@ export default class UnreadCounter extends Vue {
     const state = this.$store.state as State;
     const total = state.counters.threads.server[this.board];
     const readed = state.counters.threads.user[this.board];
+    const unread = total - readed;
 
-    return total - readed;
+    return unread > 9 ? "+" : unread;
   }
 }
 </script>
