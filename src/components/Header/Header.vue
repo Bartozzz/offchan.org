@@ -105,6 +105,7 @@ $unread-size-sm: 18px;
   font-family: $font-family-monospace;
 
   background-color: theme-color("primary");
+  color: $white;
 
   border-width: 0;
   border-radius: 100%;
