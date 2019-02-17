@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Based on: https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec
 
 BASE_DIR=$(cd "$(dirname $BASH_SOURCE[0])" && cd "../" && pwd)
