@@ -26,10 +26,20 @@ export default class BoardView extends Vue {
     return categories.find(cat => cat.board === this.$route.params.board);
   }
 
+  markBoardAsSeen() {
+    if (this.board) {
+      this.$store.dispatch("markBoardAsSeen", {
+        board: this.board.board
+      });
+    }
+  }
+
   @Watch("board", { immediate: true })
   onBoardChange(board?: Category) {
     if (!board) {
       this.$router.push("/error");
+    } else {
+      this.markBoardAsSeen();
     }
   }
 }

@@ -13,15 +13,23 @@ service cloud.firestore {
         && request.resource.data.createdAt == request.time // not sure if correct
         && !('image' in request.resource.data) // temporary !!!
         && validateContent(request.resource.data.content);
-        
+
       match /comments/{comment} {
-        allow read: if request.auth.uid != null;
+        allow read:
+        	if request.auth.uid != null;
         allow create:
           if request.auth.uid != null
           && request.resource.data.createdAt == request.time // not sure if correct
           && !('image' in request.resource.data) // temporary !!!
           && validateContent(request.resource.data.content);
       }
+    }
+
+    match /counters/{counter} {
+    	allow read:
+        if request.auth.uid != null;
+      allow write:
+      	if false;
     }
   }
 }

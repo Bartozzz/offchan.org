@@ -13,6 +13,12 @@ export interface BoardState {
 export interface State {
   comments: { unsubscribe: null | Unsubscribe };
   threads: { [BoardName in Board]: BoardState };
+  counters: {
+    threads: {
+      client: { [BoardName in Board]: number };
+      server: { [BoardName in Board]: number };
+    };
+  };
 }
 
 export function createStateForBoard(name: Board): BoardState {
@@ -37,6 +43,30 @@ export function getInitialState(): State {
       λ: createStateForBoard("λ"),
       Δ: createStateForBoard("Δ"),
       φ: createStateForBoard("φ")
+    },
+    counters: {
+      threads: {
+        client: {
+          cyb: 0,
+          psy: 0,
+          art: 0,
+          cult: 0,
+          tech: 0,
+          λ: 0,
+          Δ: 0,
+          φ: 0
+        },
+        server: {
+          cyb: 0,
+          psy: 0,
+          art: 0,
+          cult: 0,
+          tech: 0,
+          λ: 0,
+          Δ: 0,
+          φ: 0
+        }
+      }
     }
   };
 }
