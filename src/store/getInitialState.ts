@@ -15,7 +15,7 @@ export interface State {
   threads: { [BoardName in Board]: BoardState };
   counters: {
     threads: {
-      user: { [BoardName in Board]: number };
+      client: { [BoardName in Board]: number };
       server: { [BoardName in Board]: number };
     };
   };
@@ -46,7 +46,7 @@ export function getInitialState(): State {
     },
     counters: {
       threads: {
-        user: {
+        client: {
           cyb: 0,
           psy: 0,
           art: 0,

@@ -14,9 +14,9 @@ export default class UnreadCounter extends Vue {
   get counter() {
     try {
       const state = this.$store.state as State;
-      const total = state.counters.threads.server[this.board];
-      const readed = state.counters.threads.user[this.board];
-      const unread = total - readed;
+      const server = state.counters.threads.server[this.board];
+      const client = state.counters.threads.client[this.board];
+      const unread = server - client;
 
       return unread > 9 ? "+" : unread;
     } catch (_) {
