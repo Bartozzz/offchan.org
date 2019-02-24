@@ -16,13 +16,38 @@ const actions: ActionTree<State, {}> = {
 
     // NOTE: no need to unsubscribe from this counter:
     counters.fetch<ThreadsCounter>(COUNTER_THREADS, data => {
-      console.debug(`[Vuex] Threads counter updated`);
+      console.debug(`[Vuex] Threads counter updated`, data);
       commit("setThreadsCounter", data);
     });
   },
 
-  markAsReaded({ commit, state }, payload: { board: Board }) {
-    // …
+  /**
+   * Marks the entire board as seen.
+   */
+  markBoardAsSeen({ commit, state }, payload: { board: Board }) {
+    console.debug(`[Vuex] Marking entire ${payload.board} board as seen`);
+
+    commit("setBoardSeenThreadsCounter", {
+      amount: state.counters.threads.server[payload.board],
+      board: payload.board
+    });
+  },
+
+  /**
+   * Marks a specific thread from board as seen.
+   */
+  markBoardThreadAsSeen(
+    { commit, state },
+    payload: { board: Board; threadId: string }
+  ) {
+    console.debug(`[Vuex] Marking thread ${payload.threadId} as seen`);
+    // TODO: save in local storage
+    // TODO: check if already seen
+
+    commit("setBoardSeenThreadsCounter", {
+      amount: state.counters.threads.client[payload.board] + 1,
+      board: payload.board
+    });
   }
 };
 
