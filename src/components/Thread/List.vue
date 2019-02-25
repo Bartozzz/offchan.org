@@ -1,15 +1,24 @@
 <template>
   <ul class="threads">
     <li v-for="(thread, index) in data" :key="index" class="thread">
-      <ThreadPost :board="board" :guid="thread.guid" :comments="thread.comments">
+      <ThreadPost
+        :board="board"
+        :guid="thread.guid"
+        :comments="thread.comments"
+      >
         <template slot="author">{{ thread.author || "Anon" }}</template>
 
         <template slot="upload-file">
-          <b-card-img v-if="thread.image" :src="getImageUrl(thread.image)" alt="Thread image"/>
+          <b-card-img
+            v-if="thread.image"
+            :src="getImageUrl(thread.image)"
+            alt="Thread image"
+          />
         </template>
 
         <template slot="upload-name">{{ getImageUrl(thread.image) }}</template>
-        {{ thread.content }}
+
+        <MarkdownRenderer :content="thread.content"></MarkdownRenderer>
       </ThreadPost>
     </li>
   </ul>
@@ -18,12 +27,14 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import ThreadPost from "./Post.vue";
+import MarkdownRenderer from "@/components/Markdown/Renderer.vue";
 import { getImageUrl } from "@/helpers/getImageUrl";
 import { Thread } from "@/api/firebase/document/thread";
 
 @Component({
   components: {
-    ThreadPost
+    ThreadPost,
+    MarkdownRenderer
   }
 })
 export default class ThreadList extends Vue {

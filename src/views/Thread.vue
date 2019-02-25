@@ -17,7 +17,8 @@
       </template>
 
       <template slot="upload-name">{{ threadData.image }}</template>
-      {{ threadData.content }}
+
+      <MarkdownRenderer :content="threadData.content"></MarkdownRenderer>
     </ThreadPost>
 
     <CommentForm :board="board" :guid="threadGuid"></CommentForm>
@@ -30,6 +31,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import ThreadPost from "@/components/Thread/Post.vue";
 import CommentForm from "@/components/Comments/Form.vue";
+import MarkdownRenderer from "@/components/Markdown/Renderer.vue";
 import { State } from "@/store/getInitialState";
 import { Board } from "@/api/types";
 import { getImageUrl } from "@/helpers/getImageUrl";
@@ -37,7 +39,8 @@ import { getImageUrl } from "@/helpers/getImageUrl";
 @Component({
   components: {
     ThreadPost,
-    CommentForm
+    CommentForm,
+    MarkdownRenderer
   }
 })
 export default class ThreadView extends Vue {
