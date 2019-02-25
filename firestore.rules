@@ -11,7 +11,10 @@ service cloud.firestore {
         if request.auth.uid != null
         && request.resource.data.board in ['cyb', 'psy', 'art', 'cult', 'tech', 'λ', 'Δ', 'φ']
         && request.resource.data.createdAt == request.time // not sure if correct
-        && !('image' in request.resource.data) // temporary !!!
+        && (
+          !('image' in request.resource.data)
+          || request.resource.data.image.matches('[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
+        )
         && validateContent(request.resource.data.content);
 
       match /comments/{comment} {
@@ -20,7 +23,10 @@ service cloud.firestore {
         allow create:
           if request.auth.uid != null
           && request.resource.data.createdAt == request.time // not sure if correct
-          && !('image' in request.resource.data) // temporary !!!
+          && (
+            !('image' in request.resource.data)
+            || request.resource.data.image.matches('[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
+          )
           && validateContent(request.resource.data.content);
       }
     }
